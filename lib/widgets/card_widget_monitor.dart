@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/models/monitor.dart';
+import 'package:marketplace_exercise/screens/monitordetails.dart';
 
 // ignore: must_be_immutable
 class CardWidgetMonitor extends StatefulWidget {
@@ -27,7 +28,10 @@ class _CardWidgetMonitorState extends State<CardWidgetMonitor> {
         width: size.width / 2.5,
         child: Column(children: [
           InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => MonitorDetails(monitor: widget.monitor)));
+              },
               child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,

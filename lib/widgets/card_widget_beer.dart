@@ -1,6 +1,7 @@
 import 'package:marketplace_exercise/models/beer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marketplace_exercise/screens/beerdetails.dart';
 
 // ignore: must_be_immutable
 class CardWidgetBeer extends StatefulWidget {
@@ -25,7 +26,10 @@ class _CardWidgetBeerState extends State<CardWidgetBeer> {
         width: size.width / 2.5,
         child: Column(children: [
           InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => BeerDetails(beer: widget.beer)));
+              },
               child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,

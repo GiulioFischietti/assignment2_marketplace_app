@@ -39,8 +39,6 @@ class _CardWidgetProductResultState extends State<CardWidgetProductResult> {
                 child: Align(
               alignment: Alignment.center,
               child: Container(
-                  // height: size.height * 0.35 - 80,
-
                   decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(5),

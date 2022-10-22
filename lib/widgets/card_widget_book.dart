@@ -2,6 +2,7 @@ import 'package:marketplace_exercise/models/book.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/book.dart';
+import 'package:marketplace_exercise/screens/bookdetails.dart';
 
 // ignore: must_be_immutable
 class CardWidgetBook extends StatefulWidget {
@@ -26,7 +27,10 @@ class _CardWidgetBookState extends State<CardWidgetBook> {
         width: size.width / 2.5,
         child: Column(children: [
           InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => BookDetails(book: widget.book)));
+              },
               child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
