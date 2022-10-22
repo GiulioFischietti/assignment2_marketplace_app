@@ -17,20 +17,36 @@ import 'package:http/http.dart' as http;
 class HomeProvider extends ChangeNotifier {
   bool loading = false;
   List<Beer> beers = [];
+  late Beer beer;
+  late Book book;
+  late Monitor monitor;
+
   List<Book> books = [];
   List<Monitor> monitors = [];
   List<Product> productsResult = [];
+
   List<MonitorsByBrand> monitorsByBrand = [];
   List<BooksByBrand> booksByBrand = [];
 
   void getBeers() async {
     List<Beer> _beers = [];
     var beersJson = await getBeersData();
+    print(beersJson);
     for (var beer in beersJson['data']) {
       _beers.add(Beer(beer));
     }
 
     beers = _beers;
+    notifyListeners();
+  }
+
+  void getBeerById(int id) async {
+    loading = true;
+    notifyListeners();
+    var beerJson = await getBeerByIdData(id);
+    print(beerJson);
+    beer = Beer(beerJson['data']);
+    loading = false;
     notifyListeners();
   }
 
@@ -45,12 +61,21 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void getBookById(int id) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await getBookByIdData(id);
+    book = Book(beersJson['data']);
+    loading = false;
+    notifyListeners();
+  }
+
   void getBooksByBrand() async {
     List<BooksByBrand> _booksByBrand = [];
     var json = await getBooksByBrandData();
 
     for (var book in json['data']) {
-      print(book);
+      // print(book);
       _booksByBrand.add(BooksByBrand(book));
     }
 
@@ -80,6 +105,15 @@ class HomeProvider extends ChangeNotifier {
     }
 
     monitors = _monitors;
+    notifyListeners();
+  }
+
+  void getMonitorById(int id) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await getMonitorByIdData(id);
+    monitor = Monitor(beersJson['data']);
+    loading = false;
     notifyListeners();
   }
 

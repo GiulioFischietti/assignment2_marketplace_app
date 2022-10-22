@@ -30,7 +30,8 @@ class _CardWidgetMonitorState extends State<CardWidgetMonitor> {
           InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) => MonitorDetails(monitor: widget.monitor)));
+                    builder: (ctx) =>
+                        MonitorDetails(id: widget.monitor.productId)));
               },
               child: Container(
                   decoration: BoxDecoration(

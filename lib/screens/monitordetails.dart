@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/monitor.dart';
+import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/screens/cart.dart';
+import 'package:provider/provider.dart';
 
 class MonitorDetails extends StatefulWidget {
-  Monitor monitor;
-  MonitorDetails({Key? key, required this.monitor}) : super(key: key);
+  int id;
+  MonitorDetails({Key? key, required this.id}) : super(key: key);
 
   @override
   _MonitorDetailsState createState() => _MonitorDetailsState();
@@ -13,128 +15,131 @@ class MonitorDetails extends StatefulWidget {
 
 class _MonitorDetailsState extends State<MonitorDetails> {
   @override
+  void initState() {
+    super.initState();
+    final homeProvider = Provider.of<HomeProvider>(context, listen: false);
+    homeProvider.getMonitorById(widget.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(children: [
-          Expanded(
-              child: ListView(
-            children: [
-              Stack(children: [
-                Container(
-                  height: size.width / 1.5,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.contain,
-                          image: NetworkImage(widget.monitor.imageUrl))),
-                ),
+        appBar: AppBar(
+          actions: [
+            Stack(
+              children: [
                 Positioned(
-                    top: 40,
-                    left: 15,
                     child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.grey[100]),
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop(context);
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                              size: 20,
-                            )))),
-                Positioned(
-                    top: 40,
-                    right: 15,
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (ctx) => Cart()));
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          child: Icon(
-                            Icons.shopping_cart,
-                            color: Colors.black,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                        ))),
-                Positioned(
-                    top: 50,
-                    right: 25,
-                    child: Container(
-                        height: 13,
-                        width: 13,
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Text(
-                          "0",
-                          style: GoogleFonts.poppins(),
-                        )))
-              ]),
-              Container(
-                  padding: EdgeInsets.only(top: 10),
-                  color: Colors.white,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: 20, top: 20, bottom: 10),
-                                    child: Text(widget.monitor.name,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 20)))),
-                          ],
-                        ),
-                        Container(
-                            margin: EdgeInsets.only(left: 20),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "€ " + widget.monitor.price.toStringAsFixed(2),
-                              style: GoogleFonts.poppins(
-                                  fontSize: 18, color: Colors.black),
-                            )),
-                      ])),
-              field("Brand", widget.monitor.brand),
-              field("Description", widget.monitor.description),
-              field(
-                  "Refresh Rate", widget.monitor.refreshRate.toString() + 'Hz'),
-              field("Special Features",
-                  widget.monitor.specialFeatures.toString()),
-              field("Resolution", widget.monitor.resolution),
-            ],
-          )),
-          InkWell(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Icon(Icons.shopping_cart_outlined,
+                            color: Colors.black))),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                      height: 15,
+                      width: 15,
+                      alignment: Alignment.center,
+                      // padding: EdgeInsets.all(2.5),
+                      decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Text("0",
+                          style: GoogleFonts.poppins(
+                              fontSize: 11, color: Colors.white))),
+                ),
+              ],
+            )
+          ],
+          leading: InkWell(
               onTap: () {
-                // Navigator.of(context).pushNamed('/Pages');
+                Navigator.of(context).pop();
               },
-              child: Container(
-                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  child: Text("Add To Cart",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white, fontWeight: FontWeight.bold))))
-        ]));
+              child: Icon(Icons.arrow_back_ios, size: 18, color: Colors.black)),
+          backgroundColor: Colors.grey[100],
+          title: Text("Monitor",
+              style: GoogleFonts.poppins(
+                  color: Colors.black, fontWeight: FontWeight.w500)),
+        ),
+        backgroundColor: Colors.white,
+        body: Consumer<HomeProvider>(builder: (context, homeProvider, _) {
+          return homeProvider.loading
+              ? Container(
+                  height: size.height,
+                  child: Center(child: CircularProgressIndicator.adaptive()))
+              : Column(children: [
+                  Expanded(
+                      child: ListView(
+                    children: [
+                      Container(
+                        height: size.width / 1.5,
+                        width: size.width,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: homeProvider.monitor.imageUnavailable
+                                    ? BoxFit.cover
+                                    : BoxFit.contain,
+                                image: NetworkImage(
+                                    homeProvider.monitor.imageUrl))),
+                      ),
+                      Container(
+                          color: Colors.white,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                        child: Container(
+                                            margin: EdgeInsets.only(
+                                                left: 20, top: 20, bottom: 10),
+                                            child: Text(
+                                                homeProvider.monitor.name,
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 20)))),
+                                  ],
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(left: 20),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "€ " +
+                                          homeProvider.monitor.price
+                                              .toStringAsFixed(2),
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18, color: Colors.black),
+                                    )),
+                              ])),
+                      field("Brand", homeProvider.monitor.brand),
+                      field("Description", homeProvider.monitor.description),
+                      field("Refresh Rate",
+                          homeProvider.monitor.refreshRate.toString() + 'Hz'),
+                      field("Special Features",
+                          homeProvider.monitor.specialFeatures.toString()),
+                      field("Resolution", homeProvider.monitor.resolution),
+                    ],
+                  )),
+                  InkWell(
+                      onTap: () {
+                        // Navigator.of(context).pushNamed('/Pages');
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(top: 20, bottom: 20),
+                          alignment: Alignment.bottomCenter,
+                          decoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50))),
+                          child: Text("Add To Cart",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold))))
+                ]);
+        }));
   }
 
   Widget field(String title, String content) {

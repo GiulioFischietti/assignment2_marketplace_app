@@ -28,7 +28,7 @@ class _CardWidgetBeerState extends State<CardWidgetBeer> {
           InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) => BeerDetails(beer: widget.beer)));
+                    builder: (ctx) => BeerDetails(id: widget.beer.productId)));
               },
               child: Container(
                   decoration: BoxDecoration(

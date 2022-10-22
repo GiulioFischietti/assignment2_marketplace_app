@@ -1,4 +1,5 @@
 class Product {
+  late int id;
   late String name;
   late String shortDescription;
   late String description;
@@ -10,6 +11,7 @@ class Product {
   late int stock;
 
   Product(data) {
+    id = data['id'];
     name = data['name'];
     category = data['category'];
     shortDescription = data['short_description'];

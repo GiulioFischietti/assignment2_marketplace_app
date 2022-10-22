@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/book.dart';
+import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/screens/cart.dart';
+import 'package:provider/provider.dart';
 
 class BookDetails extends StatefulWidget {
-  Book book;
-  BookDetails({Key? key, required this.book}) : super(key: key);
+  int id;
+  BookDetails({Key? key, required this.id}) : super(key: key);
 
   @override
   _BookDetailsState createState() => _BookDetailsState();
@@ -13,125 +15,127 @@ class BookDetails extends StatefulWidget {
 
 class _BookDetailsState extends State<BookDetails> {
   @override
+  void initState() {
+    super.initState();
+    final homeProvider = Provider.of<HomeProvider>(context, listen: false);
+    homeProvider.getBookById(widget.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(children: [
-          Expanded(
-              child: ListView(
-            children: [
-              Stack(children: [
-                Container(
-                  height: size.width / 1.5,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.contain,
-                          image: NetworkImage(widget.book.imageUrl))),
-                ),
+        appBar: AppBar(
+          actions: [
+            Stack(
+              children: [
                 Positioned(
-                    top: 40,
-                    left: 15,
                     child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.grey[100]),
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop(context);
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                              size: 20,
-                            )))),
-                Positioned(
-                    top: 40,
-                    right: 15,
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (ctx) => Cart()));
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          child: Icon(
-                            Icons.shopping_cart,
-                            color: Colors.black,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                        ))),
-                Positioned(
-                    top: 50,
-                    right: 25,
-                    child: Container(
-                        height: 13,
-                        width: 13,
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Text(
-                          "0",
-                          style: GoogleFonts.poppins(),
-                        )))
-              ]),
-              Container(
-                  padding: EdgeInsets.only(top: 10),
-                  color: Colors.white,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: 20, top: 20, bottom: 10),
-                                    child: Text(widget.book.name,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 20)))),
-                          ],
-                        ),
-                        Container(
-                            margin: EdgeInsets.only(left: 20),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "€ " + widget.book.price.toStringAsFixed(2),
-                              style: GoogleFonts.poppins(
-                                  fontSize: 18, color: Colors.black),
-                            )),
-                      ])),
-              field("Brand", widget.book.brand),
-              field("Summary", widget.book.summary),
-              field("N. Pages", widget.book.nPages.toString()),
-              field("Language", widget.book.language),
-            ],
-          )),
-          InkWell(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Icon(Icons.shopping_cart_outlined,
+                            color: Colors.black))),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                      height: 15,
+                      width: 15,
+                      alignment: Alignment.center,
+                      // padding: EdgeInsets.all(2.5),
+                      decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Text("0",
+                          style: GoogleFonts.poppins(
+                              fontSize: 11, color: Colors.white))),
+                ),
+              ],
+            )
+          ],
+          leading: InkWell(
               onTap: () {
-                // Navigator.of(context).pushNamed('/Pages');
+                Navigator.of(context).pop();
               },
-              child: Container(
-                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  child: Text("Add To Cart",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white, fontWeight: FontWeight.bold))))
-        ]));
+              child: Icon(Icons.arrow_back_ios, size: 18, color: Colors.black)),
+          backgroundColor: Colors.grey[100],
+          title: Text("Book",
+              style: GoogleFonts.poppins(
+                  color: Colors.black, fontWeight: FontWeight.w500)),
+        ),
+        backgroundColor: Colors.white,
+        body: Consumer<HomeProvider>(builder: (context, homeProvider, _) {
+          return homeProvider.loading
+              ? Container(
+                  height: size.height,
+                  child: Center(child: CircularProgressIndicator.adaptive()))
+              : Column(children: [
+                  Expanded(
+                      child: ListView(
+                    children: [
+                      Container(
+                        height: size.width / 1.5,
+                        width: size.width,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: homeProvider.book.imageUnavailable
+                                    ? BoxFit.cover
+                                    : BoxFit.contain,
+                                image:
+                                    NetworkImage(homeProvider.book.imageUrl))),
+                      ),
+                      Container(
+                          color: Colors.white,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                        child: Container(
+                                            margin: EdgeInsets.only(
+                                                left: 20, top: 20, bottom: 10),
+                                            child: Text(homeProvider.book.name,
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 20)))),
+                                  ],
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(left: 20),
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "€ " +
+                                          homeProvider.book.price
+                                              .toStringAsFixed(2),
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18, color: Colors.black),
+                                    )),
+                              ])),
+                      field("Brand", homeProvider.book.brand),
+                      field("Summary", homeProvider.book.summary),
+                      field("N. Pages", homeProvider.book.nPages.toString()),
+                      field("Language", homeProvider.book.language),
+                    ],
+                  )),
+                  InkWell(
+                      onTap: () {
+                        // Navigator.of(context).pushNamed('/Pages');
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(top: 20, bottom: 20),
+                          alignment: Alignment.bottomCenter,
+                          decoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50))),
+                          child: Text("Add To Cart",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold))))
+                ]);
+        }));
   }
 
   Widget field(String title, String content) {

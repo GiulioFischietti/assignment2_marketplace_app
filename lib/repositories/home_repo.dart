@@ -25,6 +25,60 @@ Future<dynamic> getBeersData() async {
   }
 }
 
+Future<dynamic> getBeerByIdData(int id) async {
+  final response = await http.get(
+    Uri.parse("http://192.168.1.109:3000" + '/beerbyid?product_id=$id'),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> getBookByIdData(int id) async {
+  final response = await http.get(
+    Uri.parse("http://192.168.1.109:3000" + '/bookbyid?product_id=$id'),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> getMonitorByIdData(int id) async {
+  final response = await http.get(
+    Uri.parse("http://192.168.1.109:3000" + '/monitorbyid?product_id=$id'),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
 Future<dynamic> getBooksData() async {
   final response = await http.get(
     Uri.parse("http://192.168.1.109:3000" + '/books'),

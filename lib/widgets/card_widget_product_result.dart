@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/product.dart';
+import 'package:marketplace_exercise/screens/beerdetails.dart';
+import 'package:marketplace_exercise/screens/bookdetails.dart';
+import 'package:marketplace_exercise/screens/monitordetails.dart';
 
 // ignore: must_be_immutable
 class CardWidgetProductResult extends StatefulWidget {
@@ -32,7 +35,23 @@ class _CardWidgetProductResultState extends State<CardWidgetProductResult> {
       height: 190,
       margin: EdgeInsets.all(20),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          switch (widget.product.category) {
+            case "beer":
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (ctx) => BeerDetails(id: widget.product.id)));
+              break;
+            case "book":
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (ctx) => BookDetails(id: widget.product.id)));
+              break;
+            case "monitor":
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (ctx) => MonitorDetails(id: widget.product.id)));
+              break;
+            default:
+          }
+        },
         child: Column(
           children: [
             Expanded(

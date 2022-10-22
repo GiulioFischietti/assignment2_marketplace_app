@@ -10,7 +10,7 @@ class MonitorsByBrand {
     brand = data['brand'];
 
     for (var item in data['monitors']) {
-      print(item);
+      // print(item);
       monitors.add(Monitor(item));
     }
   }

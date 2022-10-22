@@ -35,7 +35,7 @@ Future<dynamic> logInData(String username, String password) async {
 
   if (response.statusCode == 200) {
     var loginResponse = json.decode(response.body);
-    print(loginResponse);
+    // print(loginResponse);
     return loginResponse;
   } else {
     // If the server did not return a 200 OK response,

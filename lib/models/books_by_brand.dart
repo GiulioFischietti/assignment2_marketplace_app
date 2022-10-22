@@ -9,7 +9,7 @@ class BooksByBrand {
     brand = data['brand'];
 
     for (var item in data['books']) {
-      print(item);
+      // print(item);
       books.add(Book(item));
     }
   }

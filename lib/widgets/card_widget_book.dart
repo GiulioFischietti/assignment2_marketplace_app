@@ -29,7 +29,7 @@ class _CardWidgetBookState extends State<CardWidgetBook> {
           InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) => BookDetails(book: widget.book)));
+                    builder: (ctx) => BookDetails(id: widget.book.productId)));
               },
               child: Container(
                   decoration: BoxDecoration(
