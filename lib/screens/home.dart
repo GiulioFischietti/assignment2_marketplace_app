@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/screens/books_by_brand.dart';
+import 'package:marketplace_exercise/screens/monitors_by_brand.dart';
+import 'package:marketplace_exercise/screens/search.dart';
 import 'package:marketplace_exercise/widgets/Category.dart';
 import 'package:marketplace_exercise/widgets/card_widget_beer.dart';
 import 'package:marketplace_exercise/widgets/card_widget_book.dart';
@@ -181,10 +184,10 @@ class _HomeState extends State<Home> {
                             flex: 1,
                             child: InkWell(
                                 onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => Search()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Search()));
                                 },
                                 child: Container(
                                     margin:
@@ -239,6 +242,22 @@ class _HomeState extends State<Home> {
                         itemCount: 3,
                         itemBuilder: (BuildContext context, int index) {
                           return (CategoryWidget(
+                              navigate: () {
+                                switch (categories[index]['name']) {
+                                  case "Books":
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (ctx) => BooksByBrand()));
+                                    break;
+                                  case "Monitors":
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                MonitorsByBrand()));
+                                    break;
+                                  default:
+                                }
+                              },
                               categoryColor: categories[index]['color'],
                               image: "",
                               icon: categories[index]["icon"],

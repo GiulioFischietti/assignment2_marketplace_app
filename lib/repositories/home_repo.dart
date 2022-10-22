@@ -43,9 +43,63 @@ Future<dynamic> getBooksData() async {
   }
 }
 
+Future<dynamic> getBooksByBrandData() async {
+  final response = await http.get(
+    Uri.parse("http://192.168.1.109:3000" + '/booksbybrand'),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
 Future<dynamic> getMonitorsData() async {
   final response = await http.get(
     Uri.parse("http://192.168.1.109:3000" + '/monitors'),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> searchProdutsData(String keyword) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.109:3000" + '/searchproducts'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"keyword": keyword}));
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> getMonitorsByBrandData() async {
+  final response = await http.get(
+    Uri.parse("http://192.168.1.109:3000" + '/monitorsbybrand'),
     headers: {"Content-Type": "application/json"},
   );
 

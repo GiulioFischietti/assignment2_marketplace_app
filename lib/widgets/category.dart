@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryWidget extends StatelessWidget {
   late String name;
+  late Function navigate;
   late String image;
   late String description;
   late String type;
@@ -15,6 +16,7 @@ class CategoryWidget extends StatelessWidget {
   CategoryWidget(
       {required this.name,
       required this.icon,
+      required this.navigate,
       required this.image,
       required this.description,
       required this.type,
@@ -28,6 +30,7 @@ class CategoryWidget extends StatelessWidget {
         // margin: EdgeInsets.all(10),
         child: FlatButton(
           onPressed: () {
+            this.navigate();
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
