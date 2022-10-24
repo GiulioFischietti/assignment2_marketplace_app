@@ -296,15 +296,6 @@ class _HomeState extends State<Home> {
                                                 Colors.black.withOpacity(0.8),
                                             fontSize: 18,
                                             fontWeight: FontWeight.w400))))),
-                        Container(
-                            margin: EdgeInsets.only(right: 5),
-                            child: Text("Show More",
-                                style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        color: Colors.black.withOpacity(0.8),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400)))),
-                        Icon(Icons.arrow_forward, size: 16)
                       ]))),
               Container(
                   margin: EdgeInsets.only(top: 0),
@@ -349,15 +340,6 @@ class _HomeState extends State<Home> {
                                                 Colors.black.withOpacity(0.8),
                                             fontSize: 18,
                                             fontWeight: FontWeight.w400))))),
-                        Container(
-                            margin: EdgeInsets.only(right: 5),
-                            child: Text("Show More",
-                                style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        color: Colors.black.withOpacity(0.8),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400)))),
-                        Icon(Icons.arrow_forward, size: 16)
                       ]))),
               Container(
                   margin: EdgeInsets.only(top: 0),
@@ -402,15 +384,6 @@ class _HomeState extends State<Home> {
                                                 Colors.black.withOpacity(0.8),
                                             fontSize: 18,
                                             fontWeight: FontWeight.w400))))),
-                        Container(
-                            margin: EdgeInsets.only(right: 5),
-                            child: Text("Show More",
-                                style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        color: Colors.black.withOpacity(0.8),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400)))),
-                        Icon(Icons.arrow_forward, size: 16)
                       ]))),
               Container(
                   margin: EdgeInsets.only(top: 0),
