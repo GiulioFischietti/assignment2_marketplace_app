@@ -9,7 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Home.dart';
 
 class BottomTabContainer extends StatefulWidget {
+  int initialIndex = 0;
   BottomTabContainer({
+    required this.initialIndex,
     Key? key,
   }) : super(key: key);
 
@@ -35,6 +37,12 @@ class _BottomTabContainerState extends State<BottomTabContainer> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _onItemTapped(widget.initialIndex);
   }
 
   @override

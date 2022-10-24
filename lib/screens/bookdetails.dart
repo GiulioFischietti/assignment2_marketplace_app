@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
+import 'package:marketplace_exercise/screens/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/cart.dart';
 import 'package:provider/provider.dart';
 
@@ -30,11 +31,20 @@ class _BookDetailsState extends State<BookDetails> {
             Stack(
               children: [
                 Positioned(
-                    child: Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(right: 10),
-                        child: Icon(Icons.shopping_cart_outlined,
-                            color: Colors.black))),
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (ctx) => BottomTabContainer(
+                                        initialIndex: 1,
+                                      )));
+                        },
+                        child: Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only(right: 10),
+                            child: Icon(Icons.shopping_cart_outlined,
+                                color: Colors.black)))),
                 Positioned(
                   top: 10,
                   right: 10,

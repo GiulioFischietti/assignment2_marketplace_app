@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:marketplace_exercise/models/beer.dart';
+import 'package:marketplace_exercise/models/beers_by_brand.dart';
 import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/models/books_by_brand.dart';
 import 'package:marketplace_exercise/models/monitor.dart';
@@ -25,6 +26,7 @@ class HomeProvider extends ChangeNotifier {
   List<Monitor> monitors = [];
   List<Product> productsResult = [];
 
+  List<BeersByBrand> beersByBrand = [];
   List<MonitorsByBrand> monitorsByBrand = [];
   List<BooksByBrand> booksByBrand = [];
 
@@ -80,6 +82,19 @@ class HomeProvider extends ChangeNotifier {
     }
 
     booksByBrand = _booksByBrand;
+    notifyListeners();
+  }
+
+  void getBeersByBrand() async {
+    List<BeersByBrand> _beersByBrand = [];
+    var json = await getBeersByBrandData();
+
+    for (var book in json['data']) {
+      // print(book);
+      _beersByBrand.add(BeersByBrand(book));
+    }
+
+    beersByBrand = _beersByBrand;
     notifyListeners();
   }
 

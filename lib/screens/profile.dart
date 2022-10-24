@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/screens/edit_profile.dart';
+import 'package:marketplace_exercise/screens/orders.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key});
@@ -60,8 +63,21 @@ class _ProfileState extends State<Profile> {
               )
             ],
           ),
-          profileTile("Edit Profile", Icons.edit_outlined, () {}),
-          profileTile("Orders", Icons.shopping_bag, () {}),
+          profileTile("Edit Profile", Icons.edit_outlined, () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (ctx) => EditProfile()));
+          }),
+          profileTile("Orders", Icons.shopping_bag, () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (ctx) => Orders()));
+          }),
+          Expanded(child: Container()),
+          logOutTile("Log Out", Icons.exit_to_app_outlined, () async {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.clear();
+            userProvider.user.username = "";
+            Navigator.pop(context);
+          })
         ],
       );
     })));
@@ -83,6 +99,23 @@ class _ProfileState extends State<Profile> {
             Container(
                 margin: EdgeInsets.all(20),
                 child: Icon(Icons.arrow_forward_ios)),
+          ],
+        ));
+  }
+
+  Widget logOutTile(String label, IconData icon, Function onTap) {
+    return InkWell(
+        onTap: () => onTap(),
+        child: Row(
+          children: [
+            Container(
+                margin: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                child: Icon(icon)),
+            Expanded(
+              child: Container(
+                  // margin: EdgeInsets.all(20),
+                  child: Text(label, style: GoogleFonts.poppins(fontSize: 16))),
+            ),
           ],
         ));
   }

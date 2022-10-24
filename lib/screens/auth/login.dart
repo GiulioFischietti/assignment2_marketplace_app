@@ -183,7 +183,9 @@ class _LoginState extends State<Login> {
                               usernameController.text, pwdController.text);
                           if (success) {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => BottomTabContainer()));
+                                builder: (ctx) => BottomTabContainer(
+                                      initialIndex: 0,
+                                    )));
                           }
                         },
                         color: Colors.orange[300],

@@ -10,6 +10,10 @@ class Book extends Product {
   Book(data) : super(data) {
     id = data['id'];
     productId = data['product_id'];
+    id = data['id'];
+    print("BOOK.ID $id");
+    productId = data['product_id'];
+    print("BOOK.product_id $productId");
     summary = data['summary'];
     nPages = data['n_pages'];
     language = data['language'];

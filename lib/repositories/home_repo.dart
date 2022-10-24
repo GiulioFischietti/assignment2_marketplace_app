@@ -97,6 +97,24 @@ Future<dynamic> getBooksData() async {
   }
 }
 
+Future<dynamic> getBeersByBrandData() async {
+  final response = await http.get(
+    Uri.parse("http://192.168.1.109:3000" + '/beersbybrand'),
+    headers: {"Content-Type": "application/json"},
+  );
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
 Future<dynamic> getBooksByBrandData() async {
   final response = await http.get(
     Uri.parse("http://192.168.1.109:3000" + '/booksbybrand'),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/screens/beers_by_brand.dart';
 import 'package:marketplace_exercise/screens/books_by_brand.dart';
 import 'package:marketplace_exercise/screens/monitors_by_brand.dart';
 import 'package:marketplace_exercise/screens/search.dart';
@@ -51,97 +52,97 @@ class _HomeState extends State<Home> {
           //   actions: [],
           // ),
           key: _scaffoldKey,
-          drawer: Drawer(
-            elevation: 0,
-            child: Column(
-              children: <Widget>[
-                DrawerHeader(
-                  child: userProvider.user.username != ''
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                margin: EdgeInsets.only(
-                                    left: 10, top: 30, right: 0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        userProvider.user.imageUrl,
-                                      ),
-                                    )),
-                              ),
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  margin: EdgeInsets.only(left: 20, top: 30),
-                                  child: Text(userProvider.user.username,
-                                      style: GoogleFonts.poppins(
-                                          textStyle: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: Colors.black)))),
-                            ])
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                margin: EdgeInsets.only(
-                                    left: 10, top: 30, right: 0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        userProvider.user.imageUrl,
-                                      ),
-                                    )),
-                              ),
-                              Container(
-                                  margin: EdgeInsets.only(right: 10, top: 30),
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("Accedi",
-                                          style: GoogleFonts.poppins(
-                                              textStyle: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 18,
-                                                  color: Colors.black)))))
-                            ]),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                  ),
-                ),
-                Expanded(child: Container()),
-                Container(
-                  height: 10,
-                ),
-                MenuTileWidget(
-                    icon: Icon(Icons.exit_to_app_outlined),
-                    label: "Log Out",
-                    onTap: () async {
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.clear();
-                      userProvider.user.username = "";
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    }),
-                Container(
-                  height: 40,
-                )
-              ],
-            ),
-          ),
+          // drawer: Drawer(
+          //   elevation: 0,
+          //   child: Column(
+          //     children: <Widget>[
+          //       DrawerHeader(
+          //         child: userProvider.user.username != ''
+          //             ? Row(
+          //                 mainAxisAlignment: MainAxisAlignment.start,
+          //                 crossAxisAlignment: CrossAxisAlignment.center,
+          //                 mainAxisSize: MainAxisSize.max,
+          //                 children: [
+          //                     Container(
+          //                       height: 50,
+          //                       width: 50,
+          //                       margin: EdgeInsets.only(
+          //                           left: 10, top: 30, right: 0),
+          //                       decoration: BoxDecoration(
+          //                           borderRadius: BorderRadius.circular(30),
+          //                           image: DecorationImage(
+          //                             fit: BoxFit.cover,
+          //                             image: NetworkImage(
+          //                               userProvider.user.imageUrl,
+          //                             ),
+          //                           )),
+          //                     ),
+          //                     Container(
+          //                         alignment: Alignment.centerLeft,
+          //                         margin: EdgeInsets.only(left: 20, top: 30),
+          //                         child: Text(userProvider.user.username,
+          //                             style: GoogleFonts.poppins(
+          //                                 textStyle: TextStyle(
+          //                                     fontWeight: FontWeight.w400,
+          //                                     fontSize: 16,
+          //                                     color: Colors.black)))),
+          //                   ])
+          //             : Row(
+          //                 mainAxisAlignment: MainAxisAlignment.start,
+          //                 mainAxisSize: MainAxisSize.max,
+          //                 children: [
+          //                     Container(
+          //                       height: 50,
+          //                       width: 50,
+          //                       margin: EdgeInsets.only(
+          //                           left: 10, top: 30, right: 0),
+          //                       decoration: BoxDecoration(
+          //                           borderRadius: BorderRadius.circular(30),
+          //                           image: DecorationImage(
+          //                             fit: BoxFit.cover,
+          //                             image: NetworkImage(
+          //                               userProvider.user.imageUrl,
+          //                             ),
+          //                           )),
+          //                     ),
+          //                     Container(
+          //                         margin: EdgeInsets.only(right: 10, top: 30),
+          //                         child: FlatButton(
+          //                             onPressed: () {
+          //                               Navigator.pop(context);
+          //                               Navigator.pop(context);
+          //                             },
+          //                             child: Text("Accedi",
+          //                                 style: GoogleFonts.poppins(
+          //                                     textStyle: TextStyle(
+          //                                         fontWeight: FontWeight.w400,
+          //                                         fontSize: 18,
+          //                                         color: Colors.black)))))
+          //                   ]),
+          //         decoration: BoxDecoration(
+          //           color: Colors.grey[100],
+          //         ),
+          //       ),
+          //       Expanded(child: Container()),
+          //       Container(
+          //         height: 10,
+          //       ),
+          //       // MenuTileWidget(
+          //       //     icon: Icon(Icons.exit_to_app_outlined),
+          //       //     label: "Log Out",
+          //       //     onTap: () async {
+          //       //       final prefs = await SharedPreferences.getInstance();
+          //       //       await prefs.clear();
+          //       //       userProvider.user.username = "";
+          //       //       Navigator.pop(context);
+          //       //       Navigator.pop(context);
+          //       //     }),
+          //       Container(
+          //         height: 40,
+          //       )
+          //     ],
+          //   ),
+          // ),
           body: Container(
               child: SafeArea(
                   child: SingleChildScrollView(
@@ -173,13 +174,25 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(7.5)),
                       child: Row(children: [
+                        // InkWell(
+                        //     onTap: () {
+                        //       _scaffoldKey.currentState!.openDrawer();
+                        //     },
+                        //     child: Container(
+                        //         child:
+                        //             Icon(Icons.menu, color: Colors.grey[700]))),
+
                         InkWell(
                             onTap: () {
-                              _scaffoldKey.currentState!.openDrawer();
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (ctx) => MapResultsSearch(
+                              //         keyword: "",
+                              //         position: null,
+                              //         categories: [])));
                             },
                             child: Container(
-                                child:
-                                    Icon(Icons.menu, color: Colors.grey[700]))),
+                                child: Icon(Icons.search,
+                                    color: Colors.grey[700]))),
                         Expanded(
                             flex: 1,
                             child: InkWell(
@@ -197,21 +210,10 @@ class _HomeState extends State<Home> {
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                color: Colors.grey[700],
+                                                color: Colors.grey[500],
                                                 fontSize: 14,
                                                 fontWeight:
                                                     FontWeight.w400)))))),
-                        InkWell(
-                            onTap: () {
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (ctx) => MapResultsSearch(
-                              //         keyword: "",
-                              //         position: null,
-                              //         categories: [])));
-                            },
-                            child: Container(
-                                child: Icon(Icons.search,
-                                    color: Colors.grey[700]))),
                       ]))),
               Column(
                 children: [
@@ -244,6 +246,11 @@ class _HomeState extends State<Home> {
                           return (CategoryWidget(
                               navigate: () {
                                 switch (categories[index]['name']) {
+                                  case "Beers":
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (ctx) => BeersByBrand()));
+                                    break;
                                   case "Books":
                                     Navigator.of(context).push(
                                         MaterialPageRoute(

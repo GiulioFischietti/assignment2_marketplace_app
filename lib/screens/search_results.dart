@@ -28,7 +28,7 @@ class _SearchResultsState extends State<SearchResults> {
         Container(
           margin: EdgeInsets.only(top: 20, left: 20, bottom: 0),
           alignment: Alignment.centerLeft,
-          child: Text("Search Results",
+          child: Text("${searchProvider.productsResult.length} Results",
               textScaleFactor: 1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline1),

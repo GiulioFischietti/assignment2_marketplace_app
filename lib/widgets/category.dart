@@ -49,7 +49,7 @@ class CategoryWidget extends StatelessWidget {
                   // child: Hero(
                   //     tag: this.type,
                   child: Container(
-                    child: Icon(this.icon, color: Colors.grey[700]),
+                    child: Icon(this.icon, color: Colors.grey[800]),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey[300]!),
                       borderRadius: BorderRadius.circular(60),

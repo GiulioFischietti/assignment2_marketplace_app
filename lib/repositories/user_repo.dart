@@ -44,3 +44,63 @@ Future<dynamic> logInData(String username, String password) async {
     throw Exception('Failed to load');
   }
 }
+
+Future<dynamic> updateUserData(
+    int id, String name, String username, String phone, String address) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.109:3000" + '/updateuser'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "id": id,
+        "name": name,
+        "username": username,
+        "phone": phone,
+        "address": address
+      }));
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    // print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> getUserOrdersData(int customer_id) async {
+  final response = await http.get(
+      Uri.parse("http://192.168.1.109:3000" + '/orders?id=$customer_id'),
+      headers: {"Content-Type": "application/json"});
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    // print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> getUserOrderDetailsData(int order_id, int customer_id) async {
+  final response = await http.get(
+      Uri.parse("http://192.168.1.109:3000" +
+          '/orderdetails?id=$customer_id&order_id=$order_id'),
+      headers: {"Content-Type": "application/json"});
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
