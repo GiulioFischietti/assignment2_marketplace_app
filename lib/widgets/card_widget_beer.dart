@@ -1,7 +1,10 @@
 import 'package:marketplace_exercise/models/beer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/repositories/user_repo.dart';
 import 'package:marketplace_exercise/screens/beerdetails.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CardWidgetBeer extends StatefulWidget {
@@ -62,6 +65,20 @@ class _CardWidgetBeerState extends State<CardWidgetBeer> {
                       setState(() {
                         addedToCart = true;
                       });
+                      final userProvider =
+                          Provider.of<UserProvider>(context, listen: false);
+                      addToCart(
+                          name: widget.beer.name,
+                          price: widget.beer.price,
+                          category: widget.beer.category,
+                          image_url: widget.beer.imageUrl,
+                          product_id: widget.beer.productId,
+                          user_id: userProvider.user.id);
+
+                      const snackBar = SnackBar(
+                        content: Text('Item added to cart'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: Container(
                         margin: const EdgeInsets.only(right: 2.5),

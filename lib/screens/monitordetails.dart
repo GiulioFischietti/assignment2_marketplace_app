@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/monitor.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
+import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/repositories/user_repo.dart';
 import 'package:marketplace_exercise/screens/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/cart.dart';
 import 'package:provider/provider.dart';
@@ -134,7 +136,20 @@ class _MonitorDetailsState extends State<MonitorDetails> {
                   )),
                   InkWell(
                       onTap: () {
-                        // Navigator.of(context).pushNamed('/Pages');
+                        final userProvider =
+                            Provider.of<UserProvider>(context, listen: false);
+                        addToCart(
+                            name: homeProvider.beer.name,
+                            price: homeProvider.beer.price,
+                            category: homeProvider.beer.category,
+                            image_url: homeProvider.beer.imageUrl,
+                            product_id: homeProvider.beer.productId,
+                            user_id: userProvider.user.id);
+
+                        const snackBar = SnackBar(
+                          content: Text('Item added to cart'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Container(
                           padding: EdgeInsets.only(top: 20, bottom: 20),

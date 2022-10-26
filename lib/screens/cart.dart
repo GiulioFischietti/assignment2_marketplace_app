@@ -17,7 +17,7 @@ class _CartState extends State<Cart> {
   void initState() {
     // TODO: implement initState
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.getUserOrderDetails(10620);
+    userProvider.getUserCart();
   }
 
   @override
@@ -38,11 +38,11 @@ class _CartState extends State<Cart> {
           ),
           Expanded(
               child: ListView.builder(
-            itemCount: userProvider.productOrders.length,
+            itemCount: userProvider.cartProducts.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return CardWidgetCartItem(
-                  key: widget.key, item: userProvider.productOrders[index]);
+                  key: widget.key, item: userProvider.cartProducts[index]);
             },
           )),
           InkWell(

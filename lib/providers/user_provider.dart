@@ -15,6 +15,7 @@ class UserProvider extends ChangeNotifier {
   late Customer user;
   List<Order> orders = [];
   List<ProductOrder> productOrders = [];
+  List<ProductOrder> cartProducts = [];
 
   Future<dynamic> recoverPassword(String username) async {
     var data = await http.post(Uri.parse(host + '/recoverypassword'),
@@ -56,6 +57,20 @@ class UserProvider extends ChangeNotifier {
     }
     loading = false;
     orders = _orders;
+    notifyListeners();
+  }
+
+  Future<void> getUserCart() async {
+    List<ProductOrder> _cartProducts = [];
+    loading = true;
+    notifyListeners();
+    var beersJson = await getUserCartData(user.id);
+
+    for (var order in beersJson['data']) {
+      _cartProducts.add(ProductOrder(order));
+    }
+    loading = false;
+    cartProducts = _cartProducts;
     notifyListeners();
   }
 

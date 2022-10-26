@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/product.dart';
+import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/repositories/user_repo.dart';
 import 'package:marketplace_exercise/screens/beerdetails.dart';
 import 'package:marketplace_exercise/screens/bookdetails.dart';
 import 'package:marketplace_exercise/screens/monitordetails.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CardWidgetProductResult extends StatefulWidget {
@@ -92,6 +95,21 @@ class _CardWidgetProductResultState extends State<CardWidgetProductResult> {
                                 setState(() {
                                   selected = true;
                                 });
+                                final userProvider = Provider.of<UserProvider>(
+                                    context,
+                                    listen: false);
+                                addToCart(
+                                    name: widget.product.name,
+                                    price: widget.product.price,
+                                    category: widget.product.category,
+                                    image_url: widget.product.imageUrl,
+                                    product_id: widget.product.id,
+                                    user_id: userProvider.user.id);
+                                const snackBar = SnackBar(
+                                  content: Text('Item added to cart'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               },
                               child: Padding(
                                   padding: EdgeInsets.only(

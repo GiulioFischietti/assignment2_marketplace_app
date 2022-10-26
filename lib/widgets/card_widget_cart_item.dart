@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 
 class CardWidgetCartItem extends StatefulWidget {
@@ -35,7 +38,14 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
               motion: const ScrollMotion(),
               extentRatio: 0.25,
               // A pane can dismiss the Slidable.
-              dismissible: DismissiblePane(onDismissed: () {}),
+              dismissible: DismissiblePane(onDismissed: () {
+                setState(() {
+                  widget.item.quantity = 0;
+                });
+                final userProvider =
+                    Provider.of<UserProvider>(context, listen: false);
+                removeAllFromCart(widget.item.id, userProvider.user.id);
+              }),
 
               // All actions are defined in the children parameter.
               children: [
@@ -47,6 +57,9 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                     setState(() {
                       widget.item.quantity = 0;
                     });
+                    final userProvider =
+                        Provider.of<UserProvider>(context, listen: false);
+                    removeAllFromCart(widget.item.id, userProvider.user.id);
                   },
                   backgroundColor: Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
@@ -126,6 +139,21 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                                                   setState(() {
                                                     widget.item.quantity++;
                                                   });
+                                                  final userProvider =
+                                                      Provider.of<UserProvider>(
+                                                          context,
+                                                          listen: false);
+                                                  addToCart(
+                                                      name: widget.item.name,
+                                                      price: widget.item.price,
+                                                      category:
+                                                          widget.item.category,
+                                                      image_url:
+                                                          widget.item.imageUrl,
+                                                      product_id:
+                                                          widget.item.productId,
+                                                      user_id:
+                                                          userProvider.user.id);
                                                 },
                                                 child: Container(
                                                     padding:
@@ -151,24 +179,13 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                                                   setState(() {
                                                     widget.item.quantity--;
                                                   });
-                                                  // widget.removeTotal(widget
-                                                  //     .item.product.price);
-
-                                                  // await _con.removeOneFromCart(
-                                                  //     widget.item.id);
-                                                  // await widget.updateCart();
-                                                  // if (widget.item.quantity > 0)
-                                                  //   setState(() {
-                                                  //     widget.item.quantity--;
-                                                  //   });
-                                                  // if (widget.item.quantity ==
-                                                  //     0) {
-                                                  //   widget.removeFee(widget
-                                                  //       .item
-                                                  //       .product
-                                                  //       .activity
-                                                  //       .deliveryFee);
-                                                  // }
+                                                  final userProvider =
+                                                      Provider.of<UserProvider>(
+                                                          context,
+                                                          listen: false);
+                                                  removeOneFromCart(
+                                                      widget.item.id,
+                                                      userProvider.user.id);
                                                 },
                                                 child: Container(
                                                     padding: EdgeInsets.only(

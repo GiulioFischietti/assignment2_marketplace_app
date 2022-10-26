@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:marketplace_exercise/providers/constants.dart';
+import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/screens/BottomTabContainer.dart';
 import 'package:marketplace_exercise/screens/Home.dart';
 import 'package:http/http.dart' as http;
 import 'package:marketplace_exercise/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future deleteProfile(String password) async {
@@ -95,7 +97,91 @@ Future<dynamic> getUserOrderDetailsData(int order_id, int customer_id) async {
 
   if (response.statusCode == 200) {
     var loginResponse = json.decode(response.body);
-    print(loginResponse);
+    // print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> getUserCartData(int customer_id) async {
+  final response = await http.get(
+      Uri.parse("http://192.168.1.109:3000" + '/getcart?id=$customer_id'),
+      headers: {"Content-Type": "application/json"});
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    // print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> removeOneFromCart(int cart_item_id, int user_id) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.109:3000" + '/removefromcart'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"id": cart_item_id, "user_id": user_id}));
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    // print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> removeAllFromCart(int cart_item_id, int user_id) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.109:3000" + '/removeallitemfromcart'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"id": cart_item_id, "user_id": user_id}));
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    // print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> addToCart(
+    {int? product_id,
+    String? name,
+    String? category,
+    double? price,
+    int? user_id,
+    String? image_url}) async {
+  final response =
+      await http.post(Uri.parse("http://192.168.1.109:3000" + '/addtocart'),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({
+            "product_id": product_id,
+            "name": name,
+            "category": category,
+            "price": price,
+            "user_id": user_id,
+            "image_url": image_url
+          }));
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    // print(loginResponse);
     return loginResponse;
   } else {
     // If the server did not return a 200 OK response,
