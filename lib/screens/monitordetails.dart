@@ -139,11 +139,11 @@ class _MonitorDetailsState extends State<MonitorDetails> {
                         final userProvider =
                             Provider.of<UserProvider>(context, listen: false);
                         addToCart(
-                            name: homeProvider.beer.name,
-                            price: homeProvider.beer.price,
-                            category: homeProvider.beer.category,
-                            image_url: homeProvider.beer.imageUrl,
-                            product_id: homeProvider.beer.productId,
+                            name: homeProvider.monitor.name,
+                            price: homeProvider.monitor.price,
+                            category: homeProvider.monitor.category,
+                            image_url: homeProvider.monitor.imageUrl,
+                            product_id: homeProvider.monitor.productId,
                             user_id: userProvider.user.id);
 
                         const snackBar = SnackBar(
@@ -152,9 +152,9 @@ class _MonitorDetailsState extends State<MonitorDetails> {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Container(
-                          padding: EdgeInsets.only(top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(top: 20, bottom: 20),
                           alignment: Alignment.bottomCenter,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: Colors.orange,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(50),

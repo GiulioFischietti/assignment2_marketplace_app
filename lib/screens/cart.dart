@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/screens/checkoutpage.dart';
 import 'package:marketplace_exercise/widgets/card_widget_cart_item.dart';
 import 'package:provider/provider.dart';
 
@@ -47,17 +48,21 @@ class _CartState extends State<Cart> {
           )),
           InkWell(
               onTap: () {
-                // Navigator.of(context).pushNamed('/Pages');
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => CheckoutPage()));
               },
               child: Container(
                   padding: EdgeInsets.only(top: 20, bottom: 20),
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      color: Colors.orange,
+                      color: userProvider.cartProducts.isNotEmpty
+                          ? Colors.orange
+                          : Colors.grey,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(50),
                           topRight: Radius.circular(50))),
-                  child: Text("Checkout",
+                  child: Text(
+                      "Checkout ${userProvider.cartProducts.isNotEmpty ? '€' + (userProvider.cartProducts.map((e) => e.price * e.quantity)).reduce((a, b) => a + b).toStringAsFixed(2) : ''}",
                       style: GoogleFonts.poppins(
                           color: Colors.white, fontWeight: FontWeight.bold))))
         ],

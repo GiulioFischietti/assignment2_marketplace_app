@@ -135,11 +135,11 @@ class _BookDetailsState extends State<BookDetails> {
                         final userProvider =
                             Provider.of<UserProvider>(context, listen: false);
                         addToCart(
-                            name: homeProvider.beer.name,
-                            price: homeProvider.beer.price,
-                            category: homeProvider.beer.category,
-                            image_url: homeProvider.beer.imageUrl,
-                            product_id: homeProvider.beer.productId,
+                            name: homeProvider.book.name,
+                            price: homeProvider.book.price,
+                            category: homeProvider.book.category,
+                            image_url: homeProvider.book.imageUrl,
+                            product_id: homeProvider.book.productId,
                             user_id: userProvider.user.id);
 
                         const snackBar = SnackBar(

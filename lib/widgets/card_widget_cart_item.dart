@@ -136,9 +136,6 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                                                   // widget.addTotal(widget
                                                   //     .item.product.price);
 
-                                                  setState(() {
-                                                    widget.item.quantity++;
-                                                  });
                                                   final userProvider =
                                                       Provider.of<UserProvider>(
                                                           context,
@@ -154,6 +151,8 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                                                           widget.item.productId,
                                                       user_id:
                                                           userProvider.user.id);
+                                                  userProvider.addOneToCart(
+                                                      widget.item.id);
                                                 },
                                                 child: Container(
                                                     padding:
@@ -176,23 +175,24 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                                                             .poppins()))),
                                             InkWell(
                                                 onTap: () async {
-                                                  setState(() {
-                                                    widget.item.quantity--;
-                                                  });
                                                   final userProvider =
                                                       Provider.of<UserProvider>(
                                                           context,
                                                           listen: false);
+                                                  userProvider
+                                                      .removeOneFromCart(
+                                                          widget.item.id);
                                                   removeOneFromCart(
                                                       widget.item.id,
                                                       userProvider.user.id);
                                                 },
                                                 child: Container(
-                                                    padding: EdgeInsets.only(
-                                                        right: 5,
-                                                        left: 5,
-                                                        top: 5,
-                                                        bottom: 5),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 5,
+                                                            left: 5,
+                                                            top: 5,
+                                                            bottom: 5),
                                                     child: Icon(Icons.remove,
                                                         color: Colors.grey[600],
                                                         size: 18))),

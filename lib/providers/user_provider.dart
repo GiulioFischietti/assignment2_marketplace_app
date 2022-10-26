@@ -85,4 +85,14 @@ class UserProvider extends ChangeNotifier {
     productOrders = _productOrders;
     notifyListeners();
   }
+
+  Future<void> addOneToCart(int id) async {
+    cartProducts.where((element) => element.id == id).first.quantity++;
+    notifyListeners();
+  }
+
+  Future<void> removeOneFromCart(int id) async {
+    cartProducts.where((element) => element.id == id).first.quantity--;
+    notifyListeners();
+  }
 }
