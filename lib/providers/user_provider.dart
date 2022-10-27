@@ -46,6 +46,31 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> createOrder(
+      {String? shipping_address,
+      String? shipping_country,
+      String? payment_type}) async {
+    try {
+      loading = true;
+      notifyListeners();
+      var data = await createOrderData(
+          customer_id: user.id,
+          payment_type: payment_type,
+          shipping_address: shipping_address,
+          shipping_country: shipping_country,
+          total: cartProducts
+              .map((e) => e.price * e.quantity)
+              .reduce((a, b) => a + b),
+          product_orders: cartProducts);
+      // user = Customer(data['data']);
+      loading = false;
+      // notifyListeners();
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  }
+
   Future<void> getUserOrders() async {
     List<Order> _orders = [];
     loading = true;

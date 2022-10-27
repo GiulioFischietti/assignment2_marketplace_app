@@ -2,10 +2,10 @@ import 'package:marketplace_exercise/models/product.dart';
 
 class ProductOrder extends Product {
   int id = 0;
-  late double total;
-  late double quantity;
-  late int orderId;
-  late int productId;
+  late double total = 0;
+  late double quantity = 0;
+  late int orderId = 0;
+  late int productId = 0;
 
   ProductOrder(jsonMap) : super(jsonMap) {
     id = jsonMap['id'] ?? 0;
@@ -14,4 +14,10 @@ class ProductOrder extends Product {
     quantity =
         jsonMap['quantity'] != null ? jsonMap['quantity'].toDouble() : 0.0;
   }
+
+  Map<String, dynamic> toJson() => {
+        'price': price,
+        'quantity': quantity,
+        'product_id': productId,
+      };
 }

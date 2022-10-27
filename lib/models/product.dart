@@ -10,6 +10,8 @@ class Product {
   double price = 0.0;
   int stock = 0;
 
+  Product.boh() {}
+
   Product(data) {
     id = data['id'] ?? 0;
     name = data['name'] ?? "";
@@ -25,4 +27,26 @@ class Product {
         data['price'] != null ? double.parse(data['price'].toString()) : 0.0;
     stock = data['stock'] ?? 0;
   }
+  Product.fromJson(Map<String, dynamic> data) {
+    id = data['id'] ?? 0;
+    name = data['name'] ?? "";
+    category = data['category'] ?? "";
+    shortDescription = data['short_description'] ?? "";
+    description = data['description'] ?? "";
+    brand = data['brand'] ?? "";
+    imageUnavailable = (data['image_url'] == "");
+    imageUrl = data['image_url'] == ""
+        ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSSJXPMV4om8DHHMSpua5R6d8TlCmR0zDwbQ&usqp=CAU"
+        : data['image_url'] ?? "";
+    price =
+        data['price'] != null ? double.parse(data['price'].toString()) : 0.0;
+    stock = data['stock'] ?? 0;
+  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'category': category,
+        'image_url': imageUrl,
+        "price": price
+      };
 }

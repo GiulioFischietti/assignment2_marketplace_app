@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/providers/constants.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/screens/BottomTabContainer.dart';
@@ -177,6 +178,41 @@ Future<dynamic> addToCart(
             "price": price,
             "user_id": user_id,
             "image_url": image_url
+          }));
+
+  if (response.statusCode == 200) {
+    var loginResponse = json.decode(response.body);
+    // print(loginResponse);
+    return loginResponse;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+Future<dynamic> createOrderData(
+    {List<ProductOrder>? product_orders,
+    int? customer_id,
+    double? total,
+    String? shipping_address,
+    String? shipping_country,
+    String? payment_type}) async {
+  final response =
+      await http.post(Uri.parse("http://192.168.1.109:3000" + '/createorder'),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({
+            "id": customer_id,
+            "total": (product_orders!.map((e) => e.price * e.quantity))
+                .reduce((a, b) => a + b),
+            "shipping_address": shipping_address,
+            "shipping_country": shipping_country,
+            "payment_type": payment_type,
+            "product_orders": product_orders.map((e) {
+              print(e.toJson());
+              return e.toJson();
+            }).toList()
           }));
 
   if (response.statusCode == 200) {

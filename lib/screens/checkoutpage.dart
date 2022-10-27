@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/customer.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
+import 'package:marketplace_exercise/screens/bottomtabcontainer.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -55,14 +56,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
       ),
       body: Consumer<UserProvider>(builder: (context, userProvider, _) {
         return Container(
-          margin: EdgeInsets.all(20),
-          child: loadingPayment
+          child: userProvider.loading
               ? Center(child: CircularProgressIndicator())
               : Column(
                   children: <Widget>[
                     Row(
                       children: [
                         Container(
+                          margin: EdgeInsets.only(left: 20),
                           height: 30,
                           width: 30,
                           alignment: Alignment.center,
@@ -70,7 +71,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               border: Border.all(
                                   width: 1,
                                   color: step1_ongoing
-                                      ? Colors.grey[400]!!
+                                      ? Colors.grey[400]!
                                       : step1_done
                                           ? Colors.orange
                                           : Colors.grey),
@@ -147,6 +148,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               )),
                         ),
                         Container(
+                          margin: EdgeInsets.only(right: 20),
                           height: 30,
                           width: 30,
                           child: Container(
@@ -178,10 +180,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       children: [
                         Expanded(
                             child: Container(
+                                margin: EdgeInsets.only(left: 20),
                                 child: Text(
-                          "Address",
-                          style: GoogleFonts.poppins(),
-                        ))),
+                                  "Address",
+                                  style: GoogleFonts.poppins(),
+                                ))),
                         Expanded(
                             child: Container(
                                 alignment: Alignment.topCenter,
@@ -191,6 +194,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 ))),
                         Expanded(
                             child: Container(
+                                margin: EdgeInsets.only(right: 20),
                                 alignment: Alignment.centerRight,
                                 child: Text(
                                   "Summary",
@@ -205,10 +209,341 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               controller: _pageController,
                               physics: NeverScrollableScrollPhysics(),
                               children: [
-                                page1builder(),
-                                page2builder(),
-                                page3builder(userProvider.cartProducts,
-                                    userProvider.user)
+                                Column(children: [
+                                  Expanded(
+                                      child: Padding(
+                                          padding: EdgeInsets.all(20),
+                                          child: page1builder())),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 2,
+                                                blurRadius: 7)
+                                          ]),
+                                      padding:
+                                          EdgeInsets.only(bottom: 10, top: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          MaterialButton(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 40,
+                                                  vertical: 2.5),
+                                              elevation: 0,
+                                              minWidth: 0,
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Cancel",
+                                                    style:
+                                                        GoogleFonts.poppins(),
+                                                  ),
+                                                ),
+                                              ),
+                                              color: Colors.white,
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(context);
+                                              },
+                                              shape: new RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.orange),
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        100.0),
+                                              )),
+                                          MaterialButton(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 40,
+                                                  vertical: 2.5),
+                                              elevation: 0,
+                                              minWidth: 0,
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Next",
+                                                    style: GoogleFonts.poppins(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                              color: Colors.orange,
+                                              onPressed: () {
+                                                // for (var order in widget.bodyData['orders']) {
+                                                // setState(() {
+                                                //   order['delivery_address_id'] = _con.deliveryAddress.id;
+                                                // });
+                                                // }
+                                                setState(() {
+                                                  step1_ongoing = false;
+                                                  step1_done = true;
+                                                  step2_ongoing = true;
+                                                });
+
+                                                _pageController.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 650),
+                                                    curve: Curves.ease);
+                                              },
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        100.0),
+                                              )),
+                                        ],
+                                      ))
+                                ]),
+                                Column(children: [
+                                  Expanded(child: page2builder()),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 2,
+                                                blurRadius: 7)
+                                          ]),
+                                      padding:
+                                          EdgeInsets.only(bottom: 10, top: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          MaterialButton(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 40,
+                                                  vertical: 2.5),
+                                              elevation: 0,
+                                              minWidth: 0,
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Back",
+                                                    style:
+                                                        GoogleFonts.poppins(),
+                                                  ),
+                                                ),
+                                              ),
+                                              color: Colors.white,
+                                              onPressed: () {
+                                                setState(() {
+                                                  step1_ongoing = false;
+                                                  step1_done = true;
+                                                  step2_ongoing = true;
+                                                });
+                                                _pageController.previousPage(
+                                                    duration: Duration(
+                                                        milliseconds: 650),
+                                                    curve: Curves.ease);
+                                              },
+                                              shape: new RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.orange),
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        100.0),
+                                              )),
+                                          MaterialButton(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 40,
+                                                  vertical: 2.5),
+                                              elevation: 0,
+                                              minWidth: 0,
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Next",
+                                                    style: GoogleFonts.poppins(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                              color: Colors.orange,
+                                              onPressed: () async {
+                                                // String userId = (await getCurrentUserID())['user_id'];
+
+                                                // for (var order in widget.bodyData['orders']) {
+                                                //   if (credit_selected) {
+                                                //     String user_name = (await getCurrentUser()).name;
+                                                //     order['payment'] = {
+                                                //       "user_id": userId,
+                                                //       "method": "card",
+                                                //       "card_number":
+                                                //           _con.creditCard.number.replaceAll(" ", ""),
+                                                //       "card_exp_month":
+                                                //           _con.creditCard.expiration.split("/")[0],
+                                                //       "card_exp_year":
+                                                //           "20" + _con.creditCard.expiration.split("/")[1],
+                                                //       "card_cvc": _con.creditCard.cvc,
+                                                //       "intestazione": _con.creditCard.intestazione
+                                                //     };
+                                                //   } else {
+                                                //     setState(() {
+                                                //       order['payment'] = {
+                                                //         "user_id": userId,
+                                                //         "method": paypal_selected
+                                                //             ? "paypal"
+                                                //             : credit_selected
+                                                //                 ? "card"
+                                                //                 : cash_selected
+                                                //                     ? "cash"
+                                                //                     : ""
+                                                //       };
+                                                //     });
+                                                //   }
+                                                // }
+                                                setState(() {
+                                                  step2_ongoing = false;
+                                                  step2_done = true;
+                                                  step3_ongoing = true;
+                                                });
+                                                // if (_con.creditCard.number == "" && credit_selected) {
+
+                                                _pageController.nextPage(
+                                                    duration: Duration(
+                                                        milliseconds: 650),
+                                                    curve: Curves.ease);
+                                              },
+                                              shape: new RoundedRectangleBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        100.0),
+                                              )),
+                                        ],
+                                      ))
+                                ]),
+                                Column(children: [
+                                  Expanded(
+                                      child: Padding(
+                                          padding: EdgeInsets.all(20),
+                                          child: page3builder(
+                                              userProvider.cartProducts,
+                                              userProvider.user))),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 2,
+                                                blurRadius: 7)
+                                          ]),
+                                      padding:
+                                          EdgeInsets.only(bottom: 10, top: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          MaterialButton(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 40,
+                                                  vertical: 2.5),
+                                              elevation: 0,
+                                              minWidth: 0,
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Back",
+                                                    style:
+                                                        GoogleFonts.poppins(),
+                                                  ),
+                                                ),
+                                              ),
+                                              color: Colors.white,
+                                              onPressed: () {
+                                                _pageController.previousPage(
+                                                    duration: Duration(
+                                                        milliseconds: 650),
+                                                    curve: Curves.ease);
+                                              },
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.orange),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        100.0),
+                                              )),
+                                          MaterialButton(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 40,
+                                                  vertical: 2.5),
+                                              elevation: 0,
+                                              minWidth: 0,
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Confirm order",
+                                                    style: GoogleFonts.poppins(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                              color: Colors.orange,
+                                              onPressed: () async {
+                                                setState(() {
+                                                  // loadingPayment = true;
+                                                  step2_ongoing = false;
+                                                  step3_done = true;
+                                                });
+                                                showCustomDialog(
+                                                    "Thank you for your order",
+                                                    () {
+                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context)
+                                                      .pushReplacement(
+                                                          MaterialPageRoute(
+                                                              builder: (ctx) =>
+                                                                  (BottomTabContainer(
+                                                                    initialIndex:
+                                                                        0,
+                                                                  ))));
+                                                });
+                                                userProvider.createOrder(
+                                                    payment_type:
+                                                        credit_selected
+                                                            ? "card"
+                                                            : "cash",
+                                                    shipping_country:
+                                                        default_address
+                                                            ? userProvider
+                                                                .user.country
+                                                            : country_controller
+                                                                .text,
+                                                    shipping_address:
+                                                        default_address
+                                                            ? userProvider
+                                                                .user.address
+                                                            : (address_controller
+                                                                    .text +
+                                                                " " +
+                                                                cap_controller
+                                                                    .text));
+                                              },
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        100.0),
+                                              )),
+                                        ],
+                                      ))
+                                ])
                               ],
                             ))),
                   ],
@@ -219,7 +554,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   TextEditingController street_controller = new TextEditingController();
-  TextEditingController city_controller = new TextEditingController();
+  TextEditingController country_controller = new TextEditingController();
   TextEditingController cap_controller = new TextEditingController();
   bool default_address = true;
   TextEditingController address_controller = new TextEditingController();
@@ -274,6 +609,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
                       controller: name_controller,
+                      onEditingComplete: () {
+                        setState(() {});
+                      },
                       // decoration: InputDecoration(border: InputBorder.none),
                       autofocus: true,
                       cursorColor: Colors.black,
@@ -293,6 +631,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
                       controller: street_controller,
+                      onEditingComplete: () {
+                        setState(() {});
+                      },
                       // decoration: InputDecoration(border: InputBorder.none),
                       autofocus: true,
                       cursorColor: Colors.black,
@@ -301,7 +642,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.only(top: 30),
                     child: Text(
-                      "City",
+                      "Country",
                       style: GoogleFonts.poppins()
                           .copyWith(color: Colors.grey[500]),
                     )),
@@ -311,7 +652,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
-                      controller: city_controller,
+                      controller: country_controller,
+                      onEditingComplete: () {
+                        setState(() {});
+                      },
                       // decoration: InputDecoration(border: InputBorder.none),
                       autofocus: true,
                       cursorColor: Colors.black,
@@ -331,73 +675,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     alignment: Alignment.centerLeft,
                     child: TextFormField(
                       controller: cap_controller,
+                      onEditingComplete: () {
+                        setState(() {});
+                      },
                       // decoration: InputDecoration(border: InputBorder.none),
                       autofocus: true,
                       cursorColor: Colors.black,
                     )),
               ],
             ),
-      Container(
-          margin: EdgeInsets.only(bottom: 0, top: 80),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              MaterialButton(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 2.5),
-                  elevation: 0,
-                  minWidth: 0,
-                  child: Container(
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        "Cancel",
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                  ),
-                  color: Colors.white,
-                  onPressed: () {
-                    Navigator.of(context).pop(context);
-                  },
-                  shape: new RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Colors.orange),
-                    borderRadius: new BorderRadius.circular(100.0),
-                  )),
-              MaterialButton(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 2.5),
-                  elevation: 0,
-                  minWidth: 0,
-                  child: Container(
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        "Next",
-                        style: GoogleFonts.poppins(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  color: Colors.orange,
-                  onPressed: () {
-                    // for (var order in widget.bodyData['orders']) {
-                    // setState(() {
-                    //   order['delivery_address_id'] = _con.deliveryAddress.id;
-                    // });
-                    // }
-                    setState(() {
-                      step1_ongoing = false;
-                      step1_done = true;
-                      step2_ongoing = true;
-                    });
-
-                    _pageController.nextPage(
-                        duration: Duration(milliseconds: 650),
-                        curve: Curves.ease);
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100.0),
-                  )),
-            ],
-          ))
     ]);
   }
 
@@ -510,6 +796,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   margin: EdgeInsets.only(top: 15),
                   child: TextFormField(
                     controller: name_controller,
+                    onEditingComplete: () {
+                      setState(() {});
+                    },
                     // decoration: InputDecoration(border: InputBorder.none),
                     autofocus: true,
                     cursorColor: Colors.black,
@@ -594,102 +883,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     style: GoogleFonts.poppins(),
                   ))
               : Container(),
-      Container(
-          margin: EdgeInsets.only(bottom: 40, top: 40),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              MaterialButton(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 2.5),
-                  elevation: 0,
-                  minWidth: 0,
-                  child: Container(
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        "Back",
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                  ),
-                  color: Colors.white,
-                  onPressed: () {
-                    setState(() {
-                      step1_ongoing = false;
-                      step1_done = true;
-                      step2_ongoing = true;
-                    });
-                    _pageController.previousPage(
-                        duration: Duration(milliseconds: 650),
-                        curve: Curves.ease);
-                  },
-                  shape: new RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Colors.orange),
-                    borderRadius: new BorderRadius.circular(100.0),
-                  )),
-              MaterialButton(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 2.5),
-                  elevation: 0,
-                  minWidth: 0,
-                  child: Container(
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        "Next",
-                        style: GoogleFonts.poppins(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  color: Colors.orange,
-                  onPressed: () async {
-                    // String userId = (await getCurrentUserID())['user_id'];
-
-                    // for (var order in widget.bodyData['orders']) {
-                    //   if (credit_selected) {
-                    //     String user_name = (await getCurrentUser()).name;
-                    //     order['payment'] = {
-                    //       "user_id": userId,
-                    //       "method": "card",
-                    //       "card_number":
-                    //           _con.creditCard.number.replaceAll(" ", ""),
-                    //       "card_exp_month":
-                    //           _con.creditCard.expiration.split("/")[0],
-                    //       "card_exp_year":
-                    //           "20" + _con.creditCard.expiration.split("/")[1],
-                    //       "card_cvc": _con.creditCard.cvc,
-                    //       "intestazione": _con.creditCard.intestazione
-                    //     };
-                    //   } else {
-                    //     setState(() {
-                    //       order['payment'] = {
-                    //         "user_id": userId,
-                    //         "method": paypal_selected
-                    //             ? "paypal"
-                    //             : credit_selected
-                    //                 ? "card"
-                    //                 : cash_selected
-                    //                     ? "cash"
-                    //                     : ""
-                    //       };
-                    //     });
-                    //   }
-                    // }
-                    setState(() {
-                      step2_ongoing = false;
-                      step2_done = true;
-                      step3_ongoing = true;
-                    });
-                    // if (_con.creditCard.number == "" && credit_selected) {
-
-                    _pageController.nextPage(
-                        duration: Duration(milliseconds: 650),
-                        curve: Curves.ease);
-                  },
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(100.0),
-                  )),
-            ],
-          ))
     ]);
   }
 
@@ -789,7 +982,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           alignment: Alignment.centerLeft,
           child: Text(
             "Delivery address",
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
             textAlign: TextAlign.left,
           )),
       Container(
@@ -797,8 +990,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
           alignment: Alignment.centerLeft,
           child: Text(
             default_address
-                ? (user.address + ', ' + user.country)
-                : address_controller.text,
+                ? (user.name + '\n' + user.address + ', ' + user.country)
+                : name_controller.text +
+                    '\n' +
+                    street_controller.text +
+                    ', ' +
+                    country_controller.text +
+                    '\n' +
+                    cap_controller.text,
             style: GoogleFonts.poppins(),
           )),
       InkWell(
@@ -811,7 +1010,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
               alignment: Alignment.centerLeft,
               child: Text(
                 "Update",
-                style: GoogleFonts.poppins().copyWith(fontSize: 14),
+                style: GoogleFonts.poppins(
+                    color: Colors.orange, fontWeight: FontWeight.w500),
               ))),
       Container(
           margin: EdgeInsets.only(top: 20),
@@ -823,46 +1023,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
           alignment: Alignment.centerLeft,
           child: Text(
             "Payment Mode",
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+          )),
+      Container(
+          margin: EdgeInsets.only(top: 20),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            cash_selected ? "Cash" : "Credit card",
             style: GoogleFonts.poppins(),
           )),
-      // Container(
-      //   margin: EdgeInsets.only(top: 20),
-      //   alignment: Alignment.centerLeft,
-      //   child: cash_selected
-      //       ? Text(
-      //           "Cash",
-      //           style: GoogleFonts.poppins(),
-      //         )
-      //       : credit_selected
-      //           ? Row(
-      //               mainAxisAlignment: MainAxisAlignment.start,
-      //               children: [
-      //                 Image.asset("assets/img/icon mastercard.png"),
-      //                 Container(
-      //                     margin: EdgeInsets.only(left: 10),
-      //                     child: Column(
-      //                       crossAxisAlignment: CrossAxisAlignment.start,
-      //                       children: [
-      //                         Text(
-      //                           S.of(context).credit_card,
-      //                           style:
-      //                               ThemeApp.normalGrey.copyWith(fontSize: 12),
-      //                         ),
-      //                         Text(
-      //                           _con.creditCard.number ?? "",
-      //                           style: GoogleFonts.poppins(),
-      //                         )
-      //                       ],
-      //                     ))
-      //               ],
-      //             )
-      //           : paypal_selected
-      //               ? Text(
-      //                   S.of(context).paypal_payment,
-      //                   style: GoogleFonts.poppins(),
-      //                 )
-      //               : "",
-      // ),
       InkWell(
           onTap: () {
             _pageController.animateToPage(1,
@@ -871,111 +1040,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
           child: Container(
               margin: EdgeInsets.only(top: 20),
               alignment: Alignment.centerLeft,
-              child: Text(
-                "Update",
-                style: GoogleFonts.poppins().copyWith(fontSize: 14),
-              ))),
-      Container(
-          margin: EdgeInsets.only(bottom: 40, top: 40),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              MaterialButton(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 2.5),
-                  elevation: 0,
-                  minWidth: 0,
-                  child: Container(
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        "Back",
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                  ),
-                  color: Colors.white,
-                  onPressed: () {
-                    _pageController.previousPage(
-                        duration: Duration(milliseconds: 650),
-                        curve: Curves.ease);
-                  },
-                  shape: new RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Colors.orange),
-                    borderRadius: new BorderRadius.circular(100.0),
-                  )),
-              MaterialButton(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 2.5),
-                  elevation: 0,
-                  minWidth: 0,
-                  child: Container(
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        "Confirm order",
-                        style: GoogleFonts.poppins(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  color: Colors.orange,
-                  onPressed: () async {
-                    setState(() {
-                      loadingPayment = true;
-                      step2_ongoing = false;
-                      step3_done = true;
-                    });
-                    if (credit_selected) {
-                      //   PaymentMethod paymentMethod = await PaymentService()
-                      //       .createPaymentMethod(_con.creditCard);
-
-                      //   final obj = await post(
-                      //       Uri.parse(
-                      //           "https://console.appdeliveryforyou.it/api/create_payment_intent"),
-                      //       body: {
-                      //         "total":
-                      //             ((double.parse(widget.bodyData['total']) * 100))
-                      //                 .toStringAsFixed(0),
-                      //       });
-                      //   paymentIntentJson = jsonDecode(obj.body)['data'];
-                      //   PaymentIntent pi = PaymentIntent(
-                      //     clientSecret: paymentIntentJson['client_secret'],
-                      //     paymentMethodId: paymentMethod.id,
-                      //   );
-                      //   try {
-                      //     PaymentIntentResult confirmedPI =
-                      //         await StripePayment.confirmPaymentIntent(pi);
-                      //     if (confirmedPI.status == "succeeded") {
-                      //       Order new_order =
-                      //           await _con.createOrder(widget.bodyData);
-                      //       Navigator.of(context).push(MaterialPageRoute(
-                      //           builder: (ctx) =>
-                      //               OrderReceived(order: new_order)));
-                      //     }
-                      //   } catch (exc) {
-                      //     print(exc);
-                      //     showCustomDialog(
-                      //         "C'è stato un problema con il tuo ordine, contatta l'attività a cui hai effettuato l'ordine per risolvere il problema.");
-                      //   }
-
-                      //   setState(() {
-                      //     loadingPayment = false;
-                      //   });
-                      // }
-
-                      // if (cash_selected) {
-                      //   setState(() {
-                      //     loadingPayment = false;
-                      //   });
-                      //   Order new_order = await _con.createOrder(widget.bodyData);
-                      //   Navigator.of(context).push(MaterialPageRoute(
-                      //       builder: (ctx) => OrderReceived(order: new_order)));
-                      // }
-                    }
-                  },
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(100.0),
-                  )),
-            ],
-          ))
+              child: Text("Update",
+                  style: GoogleFonts.poppins(
+                      color: Colors.orange, fontWeight: FontWeight.w500)))),
     ]);
   }
 

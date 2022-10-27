@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/order.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
+import 'package:marketplace_exercise/models/user.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/widgets/card_widget_product_order.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +72,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   @override
   Widget build(BuildContext context) {
-    Widget addressesPage(Order order) {
+    Widget addressesPage(Order order, User user) {
       return ListView(
         shrinkWrap: true,
         children: [
@@ -94,7 +95,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         margin: EdgeInsets.only(left: 20, bottom: 0, top: 10),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "order.user.name",
+                          user.name,
                           style: GoogleFonts.poppins(),
                         ))),
                 // InkWell(
@@ -270,7 +271,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                   Container(
                       child: productsOrderedPage(
                           widget.order, userProvider.productOrders)),
-                  Container(child: addressesPage(widget.order))
+                  Container(
+                      child: addressesPage(widget.order, userProvider.user))
                 ]));
           }),
         ]));
