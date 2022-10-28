@@ -60,6 +60,8 @@ class _EditBookState extends State<EditBook> {
       TextEditingController(text: alcoholInitialValue);
   TextEditingController stock_controller =
       TextEditingController(text: stockInitialValue);
+  TextEditingController language_controller =
+      TextEditingController(text: stockInitialValue);
 
   bool popup = false;
   bool notifications = true;
@@ -81,6 +83,7 @@ class _EditBookState extends State<EditBook> {
       description_controller.text = widget.book.description;
       summary_controller.text = widget.book.summary;
       n_pages_controller.text = widget.book.nPages.toString();
+      language_controller.text = widget.book.language;
     });
   }
 
@@ -177,6 +180,7 @@ class _EditBookState extends State<EditBook> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) => widget.book.name = value,
                             controller: name_controller,
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
@@ -200,6 +204,8 @@ class _EditBookState extends State<EditBook> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.book.shortDescription = value,
                             controller: short_description_controller,
                             minLines: 1,
                             maxLines: 3,
@@ -225,6 +231,8 @@ class _EditBookState extends State<EditBook> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.book.description = value,
                             minLines: 3,
                             maxLines: 3,
                             controller: description_controller,
@@ -249,6 +257,8 @@ class _EditBookState extends State<EditBook> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.book.price = double.parse(value),
                             controller: price_controller,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -268,11 +278,12 @@ class _EditBookState extends State<EditBook> {
                       Container(
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.only(top: 30),
-                          child: Text("Volume in mL",
-                              style: GoogleFonts.poppins())),
+                          child: Text("N Pages", style: GoogleFonts.poppins())),
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.book.nPages = int.parse(value),
                             keyboardType: TextInputType.number,
                             controller: n_pages_controller,
                             decoration: InputDecoration(
@@ -292,13 +303,64 @@ class _EditBookState extends State<EditBook> {
                       Container(
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.only(top: 30),
-                          child:
-                              Text("Alcohol %", style: GoogleFonts.poppins())),
+                          child: Text("Summary", style: GoogleFonts.poppins())),
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) => widget.book.summary = value,
                             keyboardType: TextInputType.number,
                             controller: summary_controller,
+                            decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                            ),
+                            style: GoogleFonts.poppins()),
+                      ),
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(top: 30),
+                          child:
+                              Text("Language", style: GoogleFonts.poppins())),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: TextFormField(
+                            onChanged: (value) => widget.book.language = value,
+                            textCapitalization: TextCapitalization.characters,
+                            keyboardType: TextInputType.name,
+                            controller: language_controller,
+                            decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                            ),
+                            style: GoogleFonts.poppins()),
+                      ),
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(top: 30),
+                          child: Text("Stock", style: GoogleFonts.poppins())),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: TextFormField(
+                            onChanged: (value) =>
+                                widget.book.stock = int.parse(value),
+                            keyboardType: TextInputType.number,
+                            controller: stock_controller,
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -317,12 +379,10 @@ class _EditBookState extends State<EditBook> {
           ])),
           InkWell(
               onTap: () async {
-                // await managerProvider.updateUser(
-                //     name_controller.text,
-                //     username_controller.text,
-                //     phone_controller.text,
-                //     address_controller.text);
-                // Navigator.of(context).pop();
+                final managerProvider =
+                    Provider.of<ManagerProvider>(context, listen: false);
+                managerProvider.updateBook(widget.book);
+                Navigator.of(context).pop();
               },
               child: Container(
                   padding: EdgeInsets.only(top: 20, bottom: 20),

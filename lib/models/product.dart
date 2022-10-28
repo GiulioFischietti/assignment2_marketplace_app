@@ -10,8 +10,6 @@ class Product {
   double price = 0.0;
   int stock = 0;
 
-  Product.boh() {}
-
   Product(data) {
     id = data['id'] ?? data['product_id'] ?? 0;
     name = data['name'] ?? "";

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:marketplace_exercise/models/product.dart';
 
 class Monitor extends Product {
@@ -16,4 +18,28 @@ class Monitor extends Product {
     screenSize = double.parse(data['screen_size'].toString());
     resolution = data['resolution'];
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'id': id});
+    result.addAll({'name': name});
+    result.addAll({'short_description': shortDescription});
+    result.addAll({'description': description});
+    result.addAll({'price': price});
+    result.addAll({'brand': brand});
+    result.addAll({'stock': stock});
+
+    result.addAll({'product_id': productId});
+    result.addAll({'refresh_rate': refreshRate});
+    result.addAll({'special_features': specialFeatures});
+    result.addAll({'screen_size': screenSize});
+    result.addAll({'resolution': resolution});
+
+    return result;
+  }
+
+  factory Monitor.fromJson(String source) =>
+      Monitor.fromJson(json.decode(source));
 }

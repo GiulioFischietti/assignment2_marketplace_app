@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:marketplace_exercise/models/beer.dart';
+import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/models/manager.dart';
+import 'package:marketplace_exercise/models/monitor.dart';
 import 'package:marketplace_exercise/models/order.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/models/products_by_category.dart';
@@ -17,6 +20,9 @@ class ManagerProvider extends ChangeNotifier {
   List<ProductsByCategory> productsByCategory = [];
   List<ProductOrder> productOrders = [];
   List<Order> orders = [];
+  late Book book;
+  late Monitor monitor;
+  late Beer beer;
   late Manager manager;
 
   void getProductsByCategory() async {
@@ -43,11 +49,69 @@ class ManagerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void getBeerById(int id) async {
+    loading = true;
+    notifyListeners();
+    var beerJson = await getBeerByIdData(id);
+    print(beerJson);
+    beer = Beer(beerJson['data']);
+    loading = false;
+    notifyListeners();
+  }
+
+  void getMonitorById(int id) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await getMonitorByIdData(id);
+    monitor = Monitor(beersJson['data']);
+    loading = false;
+    notifyListeners();
+  }
+
+  void getBookById(int id) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await getBookByIdData(id);
+    book = Book(beersJson['data']);
+    loading = false;
+    notifyListeners();
+  }
+
   Future<bool> logInAsManager(String username, String password) async {
     var data = await logInAsManagerData(username, password);
     manager = Manager(data['data']);
     notifyListeners();
     return data['success'];
+  }
+
+  void updateMonitor(Monitor updatedMonitor) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await updateMonitorData(updatedMonitor);
+    getMonitorById(updatedMonitor.productId);
+    getProductsByCategory();
+    loading = false;
+    notifyListeners();
+  }
+
+  void updateBeer(Beer updatedBeer) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await updateBeerData(updatedBeer);
+    getBeerById(updatedBeer.productId);
+    getProductsByCategory();
+    loading = false;
+    notifyListeners();
+  }
+
+  void updateBook(Book updatedBook) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await updateBookData(updatedBook);
+    getBookById(updatedBook.productId);
+    getProductsByCategory();
+    loading = false;
+    notifyListeners();
   }
 
   void getManagedOrders() async {

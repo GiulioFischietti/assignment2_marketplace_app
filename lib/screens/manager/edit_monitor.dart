@@ -181,6 +181,7 @@ class _EditMonitorState extends State<EditMonitor> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) => widget.monitor.name = value,
                             controller: name_controller,
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
@@ -204,6 +205,8 @@ class _EditMonitorState extends State<EditMonitor> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.monitor.shortDescription = value,
                             controller: short_description_controller,
                             minLines: 1,
                             maxLines: 3,
@@ -229,6 +232,8 @@ class _EditMonitorState extends State<EditMonitor> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.monitor.description = value,
                             minLines: 3,
                             maxLines: 3,
                             controller: description_controller,
@@ -253,6 +258,8 @@ class _EditMonitorState extends State<EditMonitor> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.monitor.price = double.parse(value),
                             controller: price_controller,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -277,6 +284,8 @@ class _EditMonitorState extends State<EditMonitor> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.monitor.refreshRate = int.parse(value),
                             keyboardType: TextInputType.number,
                             controller: framerate_controller,
                             decoration: InputDecoration(
@@ -301,8 +310,35 @@ class _EditMonitorState extends State<EditMonitor> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.monitor.specialFeatures = value,
                             keyboardType: TextInputType.number,
                             controller: special_features_controller,
+                            decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                            ),
+                            style: GoogleFonts.poppins()),
+                      ),
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(top: 30),
+                          child: Text("Stock", style: GoogleFonts.poppins())),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: TextFormField(
+                            onChanged: (value) =>
+                                widget.monitor.stock = int.parse(value),
+                            keyboardType: TextInputType.number,
+                            controller: stock_controller,
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -321,12 +357,10 @@ class _EditMonitorState extends State<EditMonitor> {
           ])),
           InkWell(
               onTap: () async {
-                // await managerProvider.updateUser(
-                //     name_controller.text,
-                //     username_controller.text,
-                //     phone_controller.text,
-                //     address_controller.text);
-                // Navigator.of(context).pop();
+                final managerProvider =
+                    Provider.of<ManagerProvider>(context, listen: false);
+                managerProvider.updateMonitor(widget.monitor);
+                Navigator.of(context).pop();
               },
               child: Container(
                   padding: EdgeInsets.only(top: 20, bottom: 20),

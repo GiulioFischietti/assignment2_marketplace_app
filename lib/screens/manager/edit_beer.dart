@@ -178,6 +178,7 @@ class _EditBeerState extends State<EditBeer> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) => widget.beer.name = value,
                             controller: name_controller,
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
@@ -201,6 +202,8 @@ class _EditBeerState extends State<EditBeer> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.beer.shortDescription = value,
                             controller: short_description_controller,
                             minLines: 1,
                             maxLines: 3,
@@ -226,6 +229,8 @@ class _EditBeerState extends State<EditBeer> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.beer.description = value,
                             minLines: 3,
                             maxLines: 3,
                             controller: description_controller,
@@ -250,6 +255,8 @@ class _EditBeerState extends State<EditBeer> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.beer.price = double.parse(value),
                             controller: price_controller,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -274,6 +281,8 @@ class _EditBeerState extends State<EditBeer> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) =>
+                                widget.beer.volumeMl = int.parse(value),
                             keyboardType: TextInputType.number,
                             controller: volume_controller,
                             decoration: InputDecoration(
@@ -298,8 +307,35 @@ class _EditBeerState extends State<EditBeer> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                            onChanged: (value) => widget
+                                .beer.alcoholPercentage = double.parse(value),
                             keyboardType: TextInputType.number,
                             controller: alcohol_controller,
+                            decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                            ),
+                            style: GoogleFonts.poppins()),
+                      ),
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(top: 30),
+                          child: Text("Stock", style: GoogleFonts.poppins())),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: TextFormField(
+                            onChanged: (value) =>
+                                widget.beer.stock = int.parse(value),
+                            keyboardType: TextInputType.number,
+                            controller: stock_controller,
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -318,12 +354,10 @@ class _EditBeerState extends State<EditBeer> {
           ])),
           InkWell(
               onTap: () async {
-                // await managerProvider.updateUser(
-                //     name_controller.text,
-                //     username_controller.text,
-                //     phone_controller.text,
-                //     address_controller.text);
-                // Navigator.of(context).pop();
+                final managerProvider =
+                    Provider.of<ManagerProvider>(context, listen: false);
+                managerProvider.updateBeer(widget.beer);
+                Navigator.of(context).pop();
               },
               child: Container(
                   padding: EdgeInsets.only(top: 20, bottom: 20),
