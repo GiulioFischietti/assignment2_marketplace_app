@@ -1,16 +1,14 @@
-# marketplace_exercise
+# MARKETPLACE ASSIGNMENT - App
 
-A new Flutter project.
+This is the front-end, cross-platform (works on both iOS and Android) part of the assignment #2 regarding the implementation of the Marketplace application.
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+In order to run this project you will need Flutter v2.5.3 (channel stable). 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Steps:
+- Load the DB
+- Start the node.js server from github/GiulioFischietti/assignment2_marketplace_backend
+- Open the project with your IDE and update the host (192.168.x.x) to "localhost" in order to execute correctly the queries to your local db
+- Run inside lib the following commands: flutter pub get, flutter run
