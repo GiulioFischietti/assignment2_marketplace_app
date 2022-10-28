@@ -4,6 +4,7 @@ import 'package:marketplace_exercise/models/beer.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/screens/manager/edit_beer.dart';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/user/cart.dart';
 import 'package:provider/provider.dart';
@@ -102,20 +103,23 @@ class _BeerDetailsState extends State<BeerDetails> {
                   )),
                   InkWell(
                       onTap: () {
-                        final userProvider =
-                            Provider.of<UserProvider>(context, listen: false);
-                        addToCart(
-                            name: homeProvider.beer.name,
-                            price: homeProvider.beer.price,
-                            category: homeProvider.beer.category,
-                            image_url: homeProvider.beer.imageUrl,
-                            product_id: homeProvider.beer.productId,
-                            user_id: userProvider.user.id);
+                        // final userProvider =
+                        //     Provider.of<UserProvider>(context, listen: false);
+                        // addToCart(
+                        //     name: homeProvider.beer.name,
+                        //     price: homeProvider.beer.price,
+                        //     category: homeProvider.beer.category,
+                        //     image_url: homeProvider.beer.imageUrl,
+                        //     product_id: homeProvider.beer.productId,
+                        //     user_id: userProvider.user.id);
 
-                        const snackBar = SnackBar(
-                          content: Text('Item added to cart'),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        // const snackBar = SnackBar(
+                        //   content: Text('Item added to cart'),
+                        // );
+                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (ctx) =>
+                                EditBeer(beer: homeProvider.beer)));
                       },
                       child: Container(
                           padding: EdgeInsets.only(top: 20, bottom: 20),

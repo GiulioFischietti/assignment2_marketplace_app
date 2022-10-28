@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marketplace_exercise/providers/manager_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/screens/user/edit_profile.dart';
+import 'package:marketplace_exercise/screens/manager/edit_profile.dart';
 import 'package:marketplace_exercise/screens/user/orders.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SafeArea(
-        child: Consumer<UserProvider>(builder: (context, userProvider, _) {
+        child: Consumer<ManagerProvider>(builder: (context, userProvider, _) {
       return Column(
         children: [
           Container(
@@ -44,7 +45,7 @@ class _ProfileState extends State<Profile> {
                     ],
                     borderRadius: BorderRadius.circular(100),
                     image: DecorationImage(
-                        image: NetworkImage(userProvider.user.imageUrl),
+                        image: NetworkImage(userProvider.manager.imageUrl),
                         fit: BoxFit.cover)),
               ),
               Column(
@@ -54,7 +55,7 @@ class _ProfileState extends State<Profile> {
                   Container(
                       margin: EdgeInsets.only(left: 0, top: 40),
                       child: Text(
-                        userProvider.user.name,
+                        userProvider.manager.name,
                         style: GoogleFonts.poppins(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       )),
@@ -62,7 +63,7 @@ class _ProfileState extends State<Profile> {
                       alignment: Alignment.topLeft,
                       margin: EdgeInsets.only(left: 0),
                       child: Text(
-                        "@" + userProvider.user.username,
+                        "@" + userProvider.manager.username,
                         style: GoogleFonts.poppins(color: Colors.grey),
                       ))
                 ],
@@ -73,15 +74,15 @@ class _ProfileState extends State<Profile> {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => EditProfile()));
           }),
-          profileTile("Orders", Icons.shopping_bag, () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (ctx) => Orders()));
-          }),
+          // profileTile("Orders", Icons.shopping_bag, () {
+          //   Navigator.of(context)
+          //       .push(MaterialPageRoute(builder: (ctx) => Orders()));
+          // }),
           Expanded(child: Container()),
           logOutTile("Log Out", Icons.exit_to_app_outlined, () async {
             final prefs = await SharedPreferences.getInstance();
             await prefs.clear();
-            userProvider.user.username = "";
+            userProvider.manager.username = "";
             Navigator.pop(context);
           })
         ],

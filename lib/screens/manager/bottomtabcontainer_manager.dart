@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marketplace_exercise/screens/manager/home_screen.dart';
 import 'package:marketplace_exercise/screens/manager/products_by_category.dart';
 import 'package:marketplace_exercise/screens/user/cart.dart';
-import 'package:marketplace_exercise/screens/user/profile.dart';
+import 'package:marketplace_exercise/screens/manager/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomTabContainerManager extends StatefulWidget {
@@ -27,7 +28,7 @@ class _BottomTabContainerManagerState extends State<BottomTabContainerManager> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
-    // Scaffold(body: NearActivities()),
+    Scaffold(body: HomeManager()),
     Scaffold(body: ProductsByCategory()),
     // Scaffold(body: Cart()),
     Scaffold(body: Profile()),
@@ -59,7 +60,16 @@ class _BottomTabContainerManagerState extends State<BottomTabContainerManager> {
             backgroundColor: Colors.grey[100],
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: const Icon(Icons.local_shipping_outlined),
+                icon: Icon(Icons.local_shipping_outlined),
+                title: Text('Orders',
+                    style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w400,
+                    ))),
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.task),
                 title: Text('Products',
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
@@ -67,15 +77,6 @@ class _BottomTabContainerManagerState extends State<BottomTabContainerManager> {
                       fontWeight: FontWeight.w400,
                     ))),
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.shopping_cart),
-              //   title: Text('Cart',
-              //       style: GoogleFonts.poppins(
-              //           textStyle: const TextStyle(
-              //         fontSize: 11,
-              //         fontWeight: FontWeight.w400,
-              //       ))),
-              // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outlined),
                 title: Text('Profile',

@@ -13,7 +13,7 @@ class Product {
   Product.boh() {}
 
   Product(data) {
-    id = data['id'] ?? 0;
+    id = data['id'] ?? data['product_id'] ?? 0;
     name = data['name'] ?? "";
     category = data['category'] ?? "";
     shortDescription = data['short_description'] ?? "";

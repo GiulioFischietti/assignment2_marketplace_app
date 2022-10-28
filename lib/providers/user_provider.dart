@@ -32,13 +32,6 @@ class UserProvider extends ChangeNotifier {
     return data['success'];
   }
 
-  Future<bool> logInAsManager(String username, String password) async {
-    var data = await logInAsManagerData(username, password);
-    user = Customer(data['data']);
-    notifyListeners();
-    return data['success'];
-  }
-
   Future<void> updateUser(
       String name, String username, String phone, String address) async {
     try {

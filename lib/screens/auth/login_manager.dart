@@ -1,4 +1,5 @@
 import 'package:marketplace_exercise/providers/constants.dart';
+import 'package:marketplace_exercise/providers/manager_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/repositories/user_repo.dart';
 import 'package:marketplace_exercise/screens/auth/forgot_password.dart';
@@ -178,9 +179,10 @@ class _LoginAsManagerState extends State<LoginAsManager> {
                           left: 20, right: 20, bottom: 10, top: 20),
                       child: FlatButton(
                         onPressed: () async {
-                          final userProvider =
-                              Provider.of<UserProvider>(context, listen: false);
-                          bool success = await userProvider.logIn(
+                          final managerProvider = Provider.of<ManagerProvider>(
+                              context,
+                              listen: false);
+                          bool success = await managerProvider.logInAsManager(
                               usernameController.text, pwdController.text);
                           if (success) {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -199,7 +201,7 @@ class _LoginAsManagerState extends State<LoginAsManager> {
                             "Log In as Manager",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,
                                     fontSize: 16)),

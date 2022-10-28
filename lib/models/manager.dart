@@ -8,6 +8,6 @@ class Manager extends User {
   Manager(data) : super(data) {
     id = data['id'];
     title = data['title'];
-    hiredDate = data['hired_date'];
+    hiredDate = DateTime.parse(data['hired_date']);
   }
 }
