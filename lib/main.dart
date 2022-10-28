@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/beer.dart';
 import 'package:marketplace_exercise/models/product.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
+import 'package:marketplace_exercise/providers/manager_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/screens/auth/login.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => HomeProvider()),
+          ChangeNotifierProvider(create: (_) => ManagerProvider()),
         ],
         child: MaterialApp(
           theme: ThemeData(

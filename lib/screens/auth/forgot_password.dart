@@ -1,6 +1,6 @@
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/screens/bottomtabcontainer.dart';
-import 'package:marketplace_exercise/widgets/custom_dialog.dart';
+import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
+import 'package:marketplace_exercise/widgets/user/custom_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';

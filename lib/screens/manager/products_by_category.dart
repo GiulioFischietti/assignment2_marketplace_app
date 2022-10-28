@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
-import 'package:marketplace_exercise/widgets/card_widget_beer.dart';
-import 'package:marketplace_exercise/widgets/card_widget_book.dart';
+import 'package:marketplace_exercise/providers/manager_provider.dart';
+import 'package:marketplace_exercise/widgets/user/card_widget_beer.dart';
+import 'package:marketplace_exercise/widgets/user/card_widget_book.dart';
+import 'package:marketplace_exercise/widgets/manager/card_widget_product_result.dart';
 import 'package:provider/provider.dart';
 
-class BeersByBrand extends StatefulWidget {
-  const BeersByBrand({Key? key});
+class ProductsByCategory extends StatefulWidget {
+  const ProductsByCategory({Key? key});
 
   @override
-  State<BeersByBrand> createState() => _BeersByBrandState();
+  State<ProductsByCategory> createState() => _ProductsByCategoryState();
 }
 
-class _BeersByBrandState extends State<BeersByBrand> {
+class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     super.initState();
-    final homeProvider = Provider.of<HomeProvider>(context, listen: false);
-    homeProvider.getBeersByBrand();
+    final managerProvider =
+        Provider.of<ManagerProvider>(context, listen: false);
+    managerProvider.getProductsByCategory();
   }
 
   PageController _pageController = PageController();
@@ -26,31 +29,34 @@ class _BeersByBrandState extends State<BeersByBrand> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          leading: InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Icon(Icons.arrow_back_ios, size: 18, color: Colors.black)),
-          backgroundColor: Colors.grey[100],
-          title: Text("Beers",
-              style: GoogleFonts.poppins(
-                  color: Colors.black, fontWeight: FontWeight.w500)),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.orange,
+          splashColor: Colors.orange,
+          child: Icon(Icons.add, color: Colors.white),
         ),
         body: SafeArea(
             child: Column(
           children: [
-            Consumer<HomeProvider>(builder: (context, homeProvider, _) {
+            Consumer<ManagerProvider>(builder: (context, managerProvider, _) {
               return Column(children: [
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 20, bottom: 0),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Products",
+                      textScaleFactor: 1,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1),
+                ),
                 Container(
                   margin: EdgeInsets.only(top: 20, bottom: 10),
                   height: 50,
-                  child: homeProvider.beersByBrand.isNotEmpty
+                  child: managerProvider.productsByCategory.isNotEmpty
                       ? Center(
                           child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: homeProvider.beersByBrand.length,
+                          itemCount: managerProvider.productsByCategory.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                                 onTap: () {
@@ -70,8 +76,9 @@ class _BeersByBrandState extends State<BeersByBrand> {
                                         padding: EdgeInsets.symmetric(
                                             vertical: 4, horizontal: 6),
                                         child: Text(
-                                            homeProvider
-                                                .beersByBrand[index].brand,
+                                            managerProvider
+                                                .productsByCategory[index]
+                                                .category,
                                             style: GoogleFonts.poppins(
                                                 fontWeight: selected == index
                                                     ? FontWeight.bold
@@ -83,9 +90,9 @@ class _BeersByBrandState extends State<BeersByBrand> {
                         ))
                       : CircularProgressIndicator(),
                 ),
-                homeProvider.beersByBrand.isNotEmpty
+                managerProvider.productsByCategory.isNotEmpty
                     ? Container(
-                        height: size.height - 206,
+                        height: size.height * 0.66,
                         child: PageView.builder(
                           controller: _pageController,
                           onPageChanged: (int page) {
@@ -93,7 +100,7 @@ class _BeersByBrandState extends State<BeersByBrand> {
                               selected = page;
                             });
                           },
-                          itemCount: homeProvider.beersByBrand.length,
+                          itemCount: managerProvider.productsByCategory.length,
                           itemBuilder: (BuildContext context, int index1) {
                             return GridView.builder(
                               shrinkWrap: true,
@@ -101,14 +108,15 @@ class _BeersByBrandState extends State<BeersByBrand> {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
                                       childAspectRatio: 0.65),
-                              itemCount:
-                                  homeProvider.beersByBrand[index1].beer.length,
+                              itemCount: managerProvider
+                                  .productsByCategory[index1].products.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return CardWidgetBeer(
+                                return CardWidgetProductResult(
                                   // color: Colors.red,
 
-                                  beer: homeProvider
-                                      .beersByBrand[index1].beer[index],
+                                  product: managerProvider
+                                      .productsByCategory[index1]
+                                      .products[index],
                                 );
                               },
                             );

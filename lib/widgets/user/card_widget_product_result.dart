@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/product.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/repositories/user_repo.dart';
-import 'package:marketplace_exercise/screens/beerdetails.dart';
-import 'package:marketplace_exercise/screens/bookdetails.dart';
-import 'package:marketplace_exercise/screens/monitordetails.dart';
+import 'package:marketplace_exercise/screens/user/beerdetails.dart';
+import 'package:marketplace_exercise/screens/user/bookdetails.dart';
+import 'package:marketplace_exercise/screens/user/monitordetails.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable

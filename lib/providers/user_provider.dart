@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:marketplace_exercise/models/customer.dart';
+import 'package:marketplace_exercise/models/manager.dart';
 import 'package:marketplace_exercise/models/order.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/models/user.dart';
@@ -13,6 +14,7 @@ import 'package:http/http.dart' as http;
 class UserProvider extends ChangeNotifier {
   bool loading = false;
   late Customer user;
+  late Manager manager;
   List<Order> orders = [];
   List<ProductOrder> productOrders = [];
   List<ProductOrder> cartProducts = [];
@@ -25,6 +27,13 @@ class UserProvider extends ChangeNotifier {
 
   Future<bool> logIn(String username, String password) async {
     var data = await logInData(username, password);
+    user = Customer(data['data']);
+    notifyListeners();
+    return data['success'];
+  }
+
+  Future<bool> logInAsManager(String username, String password) async {
+    var data = await logInAsManagerData(username, password);
     user = Customer(data['data']);
     notifyListeners();
     return data['success'];

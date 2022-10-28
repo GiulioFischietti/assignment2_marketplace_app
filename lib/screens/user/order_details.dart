@@ -4,7 +4,7 @@ import 'package:marketplace_exercise/models/order.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/models/user.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/widgets/card_widget_product_order.dart';
+import 'package:marketplace_exercise/widgets/user/card_widget_product_order.dart';
 import 'package:provider/provider.dart';
 
 class OrderDetails extends StatefulWidget {

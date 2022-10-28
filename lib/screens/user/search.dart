@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace_exercise/screens/search_results.dart';
+import 'package:marketplace_exercise/screens/user/search_results.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key});

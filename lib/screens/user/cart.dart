@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/screens/checkoutpage.dart';
-import 'package:marketplace_exercise/widgets/card_widget_cart_item.dart';
+import 'package:marketplace_exercise/screens/user/checkoutpage.dart';
+import 'package:marketplace_exercise/widgets/user/card_widget_cart_item.dart';
 import 'package:provider/provider.dart';
 
 class Cart extends StatefulWidget {

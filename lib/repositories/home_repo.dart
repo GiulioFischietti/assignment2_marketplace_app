@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:marketplace_exercise/providers/constants.dart';
-import 'package:marketplace_exercise/screens/BottomTabContainer.dart';
-import 'package:marketplace_exercise/screens/Home.dart';
+import 'package:marketplace_exercise/screens/user/BottomTabContainer.dart';
+import 'package:marketplace_exercise/screens/user/Home.dart';
 import 'package:http/http.dart' as http;
-import 'package:marketplace_exercise/widgets/custom_dialog.dart';
+import 'package:marketplace_exercise/widgets/user/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

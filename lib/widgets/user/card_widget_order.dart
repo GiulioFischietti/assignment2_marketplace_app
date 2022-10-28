@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/order.dart';
-import 'package:marketplace_exercise/screens/order_details.dart';
+import 'package:marketplace_exercise/screens/user/order_details.dart';
 
 class CardWidgetOrder extends StatefulWidget {
   Order order;

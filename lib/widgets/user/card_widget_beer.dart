@@ -1,26 +1,25 @@
-import 'package:marketplace_exercise/models/book.dart';
+import 'package:marketplace_exercise/models/beer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/repositories/user_repo.dart';
-import 'package:marketplace_exercise/screens/bookdetails.dart';
+import 'package:marketplace_exercise/screens/user/beerdetails.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class CardWidgetBook extends StatefulWidget {
-  Book book;
+class CardWidgetBeer extends StatefulWidget {
+  Beer beer;
 
-  CardWidgetBook({
+  CardWidgetBeer({
     Key? key,
-    required this.book,
+    required this.beer,
   }) : super(key: key);
 
   @override
-  _CardWidgetBookState createState() => _CardWidgetBookState();
+  _CardWidgetBeerState createState() => _CardWidgetBeerState();
 }
 
-class _CardWidgetBookState extends State<CardWidgetBook> {
+class _CardWidgetBeerState extends State<CardWidgetBeer> {
   bool addedToCart = false;
   @override
   Widget build(BuildContext context) {
@@ -32,14 +31,14 @@ class _CardWidgetBookState extends State<CardWidgetBook> {
           InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) => BookDetails(id: widget.book.productId)));
+                    builder: (ctx) => BeerDetails(id: widget.beer.productId)));
               },
               child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(widget.book.imageUrl)),
+                          image: NetworkImage(widget.beer.imageUrl)),
                       borderRadius: BorderRadius.circular(5)),
                   width: size.width / 2.5,
                   height: size.width / 2)),
@@ -55,7 +54,7 @@ class _CardWidgetBookState extends State<CardWidgetBook> {
                         borderRadius: BorderRadius.circular(50)),
                     margin: const EdgeInsets.only(left: 2.5),
                     alignment: Alignment.centerLeft,
-                    child: Text("€" + widget.book.price.toStringAsFixed(2),
+                    child: Text("€" + widget.beer.price.toStringAsFixed(2),
                         style: GoogleFonts.poppins(
                             fontSize: 11,
                             color: Colors.white,
@@ -69,12 +68,13 @@ class _CardWidgetBookState extends State<CardWidgetBook> {
                       final userProvider =
                           Provider.of<UserProvider>(context, listen: false);
                       addToCart(
-                          name: widget.book.name,
-                          price: widget.book.price,
-                          category: widget.book.category,
-                          image_url: widget.book.imageUrl,
-                          product_id: widget.book.productId,
+                          name: widget.beer.name,
+                          price: widget.beer.price,
+                          category: widget.beer.category,
+                          image_url: widget.beer.imageUrl,
+                          product_id: widget.beer.productId,
                           user_id: userProvider.user.id);
+
                       const snackBar = SnackBar(
                         content: Text('Item added to cart'),
                       );
@@ -91,7 +91,7 @@ class _CardWidgetBookState extends State<CardWidgetBook> {
                 child: Container(
                     margin: const EdgeInsets.only(top: 5, left: 5, bottom: 5),
                     alignment: Alignment.centerLeft,
-                    child: Text(widget.book.name,
+                    child: Text(widget.beer.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins(

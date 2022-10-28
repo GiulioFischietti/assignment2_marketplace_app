@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:http/http.dart' as http;
-import 'package:marketplace_exercise/screens/auth/login_manager.dart';
+import 'package:marketplace_exercise/screens/manager/bottomtabcontainer_manager.dart';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/user/home.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +20,12 @@ import 'dart:convert';
 bool isLoggedIn = false;
 bool loading = false;
 
-class Login extends StatefulWidget {
+class LoginAsManager extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _LoginAsManagerState createState() => _LoginAsManagerState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginAsManagerState extends State<LoginAsManager> {
   initState() {
     loading = false;
     user_name = "";
@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                     ),
                     Container(
                       margin: EdgeInsets.all(15),
-                      child: Text("Log In to your account",
+                      child: Text("Log In to your Manager account",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.poppins(
                               textStyle: TextStyle(
@@ -184,7 +184,7 @@ class _LoginState extends State<Login> {
                               usernameController.text, pwdController.text);
                           if (success) {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => BottomTabContainer(
+                                builder: (ctx) => BottomTabContainerManager(
                                       initialIndex: 0,
                                     )));
                           }
@@ -196,7 +196,7 @@ class _LoginState extends State<Login> {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text(
-                            "Log In",
+                            "Log In as Manager",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
@@ -205,34 +205,6 @@ class _LoginState extends State<Login> {
                                     fontSize: 16)),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.all(5),
-                            child: FlatButton(
-                              child: Text(
-                                  "Are you Manager of a company? Log In as Manager",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                          color: Colors.black))),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            LoginAsManager()));
-                              },
-                            ),
-                          )),
-                        ],
                       ),
                     )
                   ])))

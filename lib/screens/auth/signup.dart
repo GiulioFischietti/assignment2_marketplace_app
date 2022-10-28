@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:marketplace_exercise/screens/bottomtabcontainer.dart';
+import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 
 class SignUp extends StatefulWidget {
   @override

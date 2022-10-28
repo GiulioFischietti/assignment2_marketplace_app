@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
-import 'package:marketplace_exercise/widgets/card_widget_book.dart';
+import 'package:marketplace_exercise/widgets/user/card_widget_book.dart';
+import 'package:marketplace_exercise/widgets/user/card_widget_monitor.dart';
 import 'package:provider/provider.dart';
 
-class BooksByBrand extends StatefulWidget {
-  const BooksByBrand({Key? key});
+class MonitorsByBrand extends StatefulWidget {
+  const MonitorsByBrand({Key? key});
 
   @override
-  State<BooksByBrand> createState() => _BooksByBrandState();
+  State<MonitorsByBrand> createState() => _MonitorsByBrandState();
 }
 
-class _BooksByBrandState extends State<BooksByBrand> {
+class _MonitorsByBrandState extends State<MonitorsByBrand> {
   @override
   void initState() {
     super.initState();
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
-    homeProvider.getBooksByBrand();
+    homeProvider.getMonitorsByBrand();
   }
 
   PageController _pageController = PageController();
@@ -33,12 +34,12 @@ class _BooksByBrandState extends State<BooksByBrand> {
             Container(
               margin: EdgeInsets.only(top: 40, bottom: 10),
               height: 50,
-              child: homeProvider.booksByBrand.isNotEmpty
+              child: homeProvider.monitorsByBrand.isNotEmpty
                   ? Center(
                       child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: homeProvider.booksByBrand.length,
+                      itemCount: homeProvider.monitorsByBrand.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                             onTap: () {
@@ -58,7 +59,8 @@ class _BooksByBrandState extends State<BooksByBrand> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 4, horizontal: 6),
                                     child: Text(
-                                        homeProvider.booksByBrand[index].brand,
+                                        homeProvider
+                                            .monitorsByBrand[index].brand,
                                         style: GoogleFonts.poppins(
                                             fontWeight: selected == index
                                                 ? FontWeight.bold
@@ -70,7 +72,7 @@ class _BooksByBrandState extends State<BooksByBrand> {
                     ))
                   : CircularProgressIndicator(),
             ),
-            homeProvider.booksByBrand.isNotEmpty
+            homeProvider.monitorsByBrand.isNotEmpty
                 ? Container(
                     height: size.height - 180,
                     child: PageView.builder(
@@ -80,21 +82,21 @@ class _BooksByBrandState extends State<BooksByBrand> {
                           selected = page;
                         });
                       },
-                      itemCount: homeProvider.booksByBrand.length,
+                      itemCount: homeProvider.monitorsByBrand.length,
                       itemBuilder: (BuildContext context, int index1) {
                         return GridView.builder(
                           shrinkWrap: true,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, childAspectRatio: 0.65),
-                          itemCount:
-                              homeProvider.booksByBrand[index1].books.length,
+                          itemCount: homeProvider
+                              .monitorsByBrand[index1].monitors.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return CardWidgetBook(
+                            return CardWidgetMonitor(
                               // color: Colors.red,
 
-                              book: homeProvider
-                                  .booksByBrand[index1].books[index],
+                              monitor: homeProvider
+                                  .monitorsByBrand[index1].monitors[index],
                             );
                           },
                         );

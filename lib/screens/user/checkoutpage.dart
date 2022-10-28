@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/customer.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/screens/bottomtabcontainer.dart';
+import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutPage extends StatefulWidget {

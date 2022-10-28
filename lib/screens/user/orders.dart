@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/widgets/card_widget_order.dart';
+import 'package:marketplace_exercise/widgets/user/card_widget_order.dart';
 import 'package:provider/provider.dart';
 
 class Orders extends StatefulWidget {

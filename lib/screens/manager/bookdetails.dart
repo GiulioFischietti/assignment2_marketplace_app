@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:marketplace_exercise/models/beer.dart';
+import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/repositories/user_repo.dart';
-import 'package:marketplace_exercise/screens/bottomtabcontainer.dart';
-import 'package:marketplace_exercise/screens/cart.dart';
+import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
+import 'package:marketplace_exercise/screens/user/cart.dart';
 import 'package:provider/provider.dart';
 
-class BeerDetails extends StatefulWidget {
+class BookDetails extends StatefulWidget {
   int id;
-  BeerDetails({Key? key, required this.id}) : super(key: key);
+  BookDetails({Key? key, required this.id}) : super(key: key);
 
   @override
-  _BeerDetailsState createState() => _BeerDetailsState();
+  _BookDetailsState createState() => _BookDetailsState();
 }
 
-class _BeerDetailsState extends State<BeerDetails> {
+class _BookDetailsState extends State<BookDetails> {
   @override
   void initState() {
     super.initState();
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
-    homeProvider.getBeerById(widget.id);
+    homeProvider.getBookById(widget.id);
   }
 
   @override
@@ -29,49 +29,13 @@ class _BeerDetailsState extends State<BeerDetails> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          actions: [
-            Stack(
-              children: [
-                Positioned(
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (ctx) => BottomTabContainer(
-                                        initialIndex: 1,
-                                      )));
-                        },
-                        child: Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(right: 10),
-                            child: Icon(Icons.shopping_cart_outlined,
-                                color: Colors.black)))),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Container(
-                      height: 15,
-                      width: 15,
-                      alignment: Alignment.center,
-                      // padding: EdgeInsets.all(2.5),
-                      decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Text("0",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: Colors.white))),
-                ),
-              ],
-            )
-          ],
           leading: InkWell(
               onTap: () {
                 Navigator.of(context).pop();
               },
               child: Icon(Icons.arrow_back_ios, size: 18, color: Colors.black)),
           backgroundColor: Colors.grey[100],
-          title: Text("Beer",
+          title: Text("Book",
               style: GoogleFonts.poppins(
                   color: Colors.black, fontWeight: FontWeight.w500)),
         ),
@@ -90,14 +54,13 @@ class _BeerDetailsState extends State<BeerDetails> {
                         width: size.width,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                fit: homeProvider.beer.imageUnavailable
+                                fit: homeProvider.book.imageUnavailable
                                     ? BoxFit.cover
                                     : BoxFit.contain,
                                 image:
-                                    NetworkImage(homeProvider.beer.imageUrl))),
+                                    NetworkImage(homeProvider.book.imageUrl))),
                       ),
                       Container(
-                          padding: EdgeInsets.only(top: 10),
                           color: Colors.white,
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -109,7 +72,7 @@ class _BeerDetailsState extends State<BeerDetails> {
                                         child: Container(
                                             margin: EdgeInsets.only(
                                                 left: 20, top: 20, bottom: 10),
-                                            child: Text(homeProvider.beer.name,
+                                            child: Text(homeProvider.book.name,
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 20)))),
                                   ],
@@ -119,21 +82,16 @@ class _BeerDetailsState extends State<BeerDetails> {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       "€ " +
-                                          homeProvider.beer.price
+                                          homeProvider.book.price
                                               .toStringAsFixed(2),
                                       style: GoogleFonts.poppins(
                                           fontSize: 18, color: Colors.black),
                                     )),
                               ])),
-                      field("Brand", homeProvider.beer.brand),
-                      field("Description", homeProvider.beer.description),
-                      field(
-                          "Alcohol Percentage",
-                          homeProvider.beer.alcoholPercentage
-                                  .toStringAsFixed(1) +
-                              '%'),
-                      field("Volume",
-                          homeProvider.beer.volumeMl.toString() + 'mL'),
+                      field("Brand", homeProvider.book.brand),
+                      field("Summary", homeProvider.book.summary),
+                      field("N. Pages", homeProvider.book.nPages.toString()),
+                      field("Language", homeProvider.book.language),
                     ],
                   )),
                   InkWell(
@@ -141,11 +99,11 @@ class _BeerDetailsState extends State<BeerDetails> {
                         final userProvider =
                             Provider.of<UserProvider>(context, listen: false);
                         addToCart(
-                            name: homeProvider.beer.name,
-                            price: homeProvider.beer.price,
-                            category: homeProvider.beer.category,
-                            image_url: homeProvider.beer.imageUrl,
-                            product_id: homeProvider.beer.productId,
+                            name: homeProvider.book.name,
+                            price: homeProvider.book.price,
+                            category: homeProvider.book.category,
+                            image_url: homeProvider.book.imageUrl,
+                            product_id: homeProvider.book.productId,
                             user_id: userProvider.user.id);
 
                         const snackBar = SnackBar(
@@ -161,7 +119,7 @@ class _BeerDetailsState extends State<BeerDetails> {
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(50),
                                   topRight: Radius.circular(50))),
-                          child: Text("Add To Cart",
+                          child: Text("Update Details",
                               style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold))))

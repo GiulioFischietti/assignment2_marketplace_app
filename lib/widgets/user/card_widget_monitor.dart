@@ -5,7 +5,7 @@ import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/models/monitor.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/repositories/user_repo.dart';
-import 'package:marketplace_exercise/screens/monitordetails.dart';
+import 'package:marketplace_exercise/screens/user/monitordetails.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
