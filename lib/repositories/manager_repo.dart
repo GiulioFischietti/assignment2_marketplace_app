@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<dynamic> getProductsByCategoryData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.109:3000" + '/productsbycategory'),
+    Uri.parse("http://192.168.1.16:3000" + '/productsbycategory'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -30,7 +30,7 @@ Future<dynamic> getProductsByCategoryData() async {
 
 Future<dynamic> getManagerOrdersData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.109:3000" + '/managerorders'),
+    Uri.parse("http://192.168.1.16:3000" + '/managerorders'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -48,7 +48,7 @@ Future<dynamic> getManagerOrdersData() async {
 
 Future<dynamic> updateMonitorData(Monitor monitor) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/updatemonitor'),
+      Uri.parse("http://192.168.1.16:3000" + '/updatemonitor'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(monitor.toJson()));
 
@@ -66,7 +66,7 @@ Future<dynamic> updateMonitorData(Monitor monitor) async {
 
 Future<dynamic> updateBookData(Book book) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/updatebook'),
+      Uri.parse("http://192.168.1.16:3000" + '/updatebook'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(book.toJson()));
 
@@ -82,11 +82,79 @@ Future<dynamic> updateBookData(Book book) async {
   }
 }
 
+Future<dynamic> updateStatusOrderData(String status, int id) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.16:3000" + '/updatestatusorder'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"id": id, "status": status}));
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+    return responseData;
+  } else {
+    throw Exception('Failed to load');
+  }
+}
+
 Future<dynamic> updateBeerData(Beer beer) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/updatebeer'),
+      Uri.parse("http://192.168.1.16:3000" + '/updatebeer'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(beer.toJson()));
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+createBeerData(Beer beer) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.16:3000" + '/createbeer'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(beer.toJson()));
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+createBookData(Book book) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.16:3000" + '/createbook'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(book.toJson()));
+
+  if (response.statusCode == 200) {
+    var responseData = json.decode(response.body);
+
+    return responseData;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+
+    throw Exception('Failed to load');
+  }
+}
+
+createMonitorData(Monitor monitor) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.16:3000" + '/createmonitor'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(monitor.toJson()));
 
   if (response.statusCode == 200) {
     var responseData = json.decode(response.body);

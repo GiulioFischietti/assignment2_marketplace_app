@@ -3,16 +3,18 @@ import 'dart:convert';
 import 'package:marketplace_exercise/models/product.dart';
 
 class Beer extends Product {
-  late int id;
-  late int productId;
-  late double alcoholPercentage;
-  late int volumeMl;
+  late int id = 0;
+  late int productId = 0;
+  late double alcoholPercentage = 0.0;
+  late int volumeMl = 0;
 
   Beer(data) : super(data) {
-    id = data['id'];
-    productId = data['product_id'];
-    alcoholPercentage = double.parse(data['alcohol_percentage'].toString());
-    volumeMl = data['volume_ml'];
+    id = data['id'] ?? 0;
+    productId = data['product_id'] ?? 0;
+    alcoholPercentage = data['alcohol_percentage'] != null
+        ? double.parse(data['alcohol_percentage'].toString())
+        : 0.0;
+    volumeMl = data['volume_ml'] ?? 0;
   }
   @override
   Map<String, dynamic> toJson() {

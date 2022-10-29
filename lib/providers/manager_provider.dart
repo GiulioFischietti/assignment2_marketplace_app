@@ -104,6 +104,36 @@ class ManagerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void createBeer(Beer updatedBeer) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await createBeerData(updatedBeer);
+
+    getProductsByCategory();
+    loading = false;
+    notifyListeners();
+  }
+
+  void createBook(Book updatedBook) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await createBookData(updatedBook);
+
+    getProductsByCategory();
+    loading = false;
+    notifyListeners();
+  }
+
+  void createMonitor(Monitor updatedMonitor) async {
+    loading = true;
+    notifyListeners();
+    var beersJson = await createMonitorData(updatedMonitor);
+
+    getProductsByCategory();
+    loading = false;
+    notifyListeners();
+  }
+
   void updateBook(Book updatedBook) async {
     loading = true;
     notifyListeners();
@@ -124,5 +154,11 @@ class ManagerProvider extends ChangeNotifier {
 
     orders = _orders;
     notifyListeners();
+  }
+
+  void updateStatusOrder(String status, int id) async {
+    orders.where((element) => element.id == id).first.status = status;
+    notifyListeners();
+    var json = await updateStatusOrderData(status, id);
   }
 }

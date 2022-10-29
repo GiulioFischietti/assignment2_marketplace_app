@@ -35,6 +35,8 @@ class _OrderDetailsState extends State<OrderDetails> {
     super.dispose();
   }
 
+  List<String> statuses = ['Paid', 'In preparation', 'Shipped', 'Delivered'];
+  late String dropdownValue = widget.order.status;
   @override
   Widget build(BuildContext context) {
     Widget addressesPage(Order order, User user) {
@@ -131,6 +133,51 @@ class _OrderDetailsState extends State<OrderDetails> {
                   blurRadius: 7)
             ]),
           ),
+          Row(children: [
+            Expanded(
+                child: Container(
+                    margin: EdgeInsets.all(20),
+                    alignment: Alignment.centerLeft,
+                    child: Text("Status", style: GoogleFonts.poppins()))),
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              style: GoogleFonts.poppins(
+                  color: dropdownValue == 'Paid'
+                      ? Colors.grey
+                      : dropdownValue == 'Delivered'
+                          ? Colors.green
+                          : Colors.yellow[800]),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String? value) {
+                if (value != null) {
+                  final managerProvider =
+                      Provider.of<ManagerProvider>(context, listen: false);
+                  managerProvider.updateStatusOrder(value, widget.order.id);
+                  setState(() {
+                    dropdownValue = value;
+                    widget.order.status = value;
+                  });
+                }
+              },
+              items: statuses.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value,
+                      style: GoogleFonts.poppins(
+                          color: value == 'Paid'
+                              ? Colors.grey
+                              : value == 'Delivered'
+                                  ? Colors.green
+                                  : Colors.yellow[800])),
+                );
+              }).toList(),
+            )
+          ]),
           Row(children: [
             Expanded(
                 child: Container(

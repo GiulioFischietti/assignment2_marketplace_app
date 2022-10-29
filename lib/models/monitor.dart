@@ -11,12 +11,12 @@ class Monitor extends Product {
   late String resolution;
 
   Monitor(data) : super(data) {
-    id = data['id'];
-    productId = data['product_id'];
-    refreshRate = data['refresh_rate'];
-    specialFeatures = data['special_features'];
-    screenSize = double.parse(data['screen_size'].toString());
-    resolution = data['resolution'];
+    id = data['id'] ?? 0;
+    productId = data['product_id'] ?? 0;
+    refreshRate = data['refresh_rate'] ?? 0;
+    specialFeatures = data['special_features'] ?? "";
+    screenSize = double.parse((data['screen_size'] ?? "0").toString());
+    resolution = data['resolution'] ?? "";
   }
 
   @override

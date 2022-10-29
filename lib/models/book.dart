@@ -10,11 +10,11 @@ class Book extends Product {
   late String language;
 
   Book(data) : super(data) {
-    id = data['id'];
-    productId = data['product_id'];
-    summary = data['summary'];
-    nPages = data['n_pages'];
-    language = data['language'];
+    id = data['id'] ?? 0;
+    productId = data['product_id'] ?? 0;
+    summary = data['summary'] ?? "";
+    nPages = data['n_pages'] ?? 0;
+    language = data['language'] ?? "";
   }
 
   @override

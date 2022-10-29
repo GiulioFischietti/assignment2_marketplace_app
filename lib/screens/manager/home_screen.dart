@@ -72,8 +72,8 @@ class _HomeManagerState extends State<HomeManager> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                            padding:
-                                EdgeInsets.only(top: 20, left: 20, bottom: 10),
+                            padding: EdgeInsets.only(
+                                top: 20, left: 20, bottom: 10, right: 20),
                             child: Text(
                               "Welcome Back ${managerProvider.manager.name}",
                               style: GoogleFonts.poppins(fontSize: 18),

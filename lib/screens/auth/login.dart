@@ -208,30 +208,32 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Container(
-                      child: Row(
+                      child: Column(
                         children: [
-                          Expanded(
-                              child: Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.all(5),
-                            child: FlatButton(
-                              child: Text(
-                                  "Are you Manager of a company? Log In as Manager",
+                          Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: Text("Are you Manager of a company?",
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14,
-                                          color: Colors.black))),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            LoginAsManager()));
-                              },
-                            ),
-                          )),
+                                          color: Colors.black)))),
+                          FlatButton(
+                            child: Text("Log In as Manager",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                        color: Colors.orange))),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginAsManager()));
+                            },
+                          ),
                         ],
                       ),
                     )

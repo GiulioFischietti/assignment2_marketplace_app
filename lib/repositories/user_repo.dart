@@ -32,7 +32,7 @@ Future deleteProfile(String password) async {
 
 Future<dynamic> logInData(String username, String password) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/login'),
+      Uri.parse("http://192.168.1.16:3000" + '/login'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"username": username, "password": password}));
 
@@ -50,7 +50,7 @@ Future<dynamic> logInData(String username, String password) async {
 
 Future<dynamic> logInAsManagerData(String username, String password) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/loginasmanager'),
+      Uri.parse("http://192.168.1.16:3000" + '/loginasmanager'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"username": username, "password": password}));
 
@@ -69,7 +69,7 @@ Future<dynamic> logInAsManagerData(String username, String password) async {
 Future<dynamic> updateUserData(
     int id, String name, String username, String phone, String address) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/updateuser'),
+      Uri.parse("http://192.168.1.16:3000" + '/updateuser'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({
         "id": id,
@@ -93,7 +93,7 @@ Future<dynamic> updateUserData(
 
 Future<dynamic> getUserOrdersData(int customer_id) async {
   final response = await http.get(
-      Uri.parse("http://192.168.1.109:3000" + '/orders?id=$customer_id'),
+      Uri.parse("http://192.168.1.16:3000" + '/orders?id=$customer_id'),
       headers: {"Content-Type": "application/json"});
 
   if (response.statusCode == 200) {
@@ -110,7 +110,7 @@ Future<dynamic> getUserOrdersData(int customer_id) async {
 
 Future<dynamic> getUserOrderDetailsData(int order_id, int customer_id) async {
   final response = await http.get(
-      Uri.parse("http://192.168.1.109:3000" +
+      Uri.parse("http://192.168.1.16:3000" +
           '/orderdetails?id=$customer_id&order_id=$order_id'),
       headers: {"Content-Type": "application/json"});
 
@@ -128,7 +128,7 @@ Future<dynamic> getUserOrderDetailsData(int order_id, int customer_id) async {
 
 Future<dynamic> getUserCartData(int customer_id) async {
   final response = await http.get(
-      Uri.parse("http://192.168.1.109:3000" + '/getcart?id=$customer_id'),
+      Uri.parse("http://192.168.1.16:3000" + '/getcart?id=$customer_id'),
       headers: {"Content-Type": "application/json"});
 
   if (response.statusCode == 200) {
@@ -145,7 +145,7 @@ Future<dynamic> getUserCartData(int customer_id) async {
 
 Future<dynamic> removeOneFromCart(int cart_item_id, int user_id) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/removefromcart'),
+      Uri.parse("http://192.168.1.16:3000" + '/removefromcart'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"id": cart_item_id, "user_id": user_id}));
 
@@ -163,7 +163,7 @@ Future<dynamic> removeOneFromCart(int cart_item_id, int user_id) async {
 
 Future<dynamic> removeAllFromCart(int cart_item_id, int user_id) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.109:3000" + '/removeallitemfromcart'),
+      Uri.parse("http://192.168.1.16:3000" + '/removeallitemfromcart'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"id": cart_item_id, "user_id": user_id}));
 
@@ -187,7 +187,7 @@ Future<dynamic> addToCart(
     int? user_id,
     String? image_url}) async {
   final response =
-      await http.post(Uri.parse("http://192.168.1.109:3000" + '/addtocart'),
+      await http.post(Uri.parse("http://192.168.1.16:3000" + '/addtocart'),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
             "product_id": product_id,
@@ -218,7 +218,7 @@ Future<dynamic> createOrderData(
     String? shipping_country,
     String? payment_type}) async {
   final response =
-      await http.post(Uri.parse("http://192.168.1.109:3000" + '/createorder'),
+      await http.post(Uri.parse("http://192.168.1.16:3000" + '/createorder'),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
             "id": customer_id,

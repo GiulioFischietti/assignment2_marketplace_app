@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/providers/manager_provider.dart';
+import 'package:marketplace_exercise/screens/manager/create_beer.dart';
+import 'package:marketplace_exercise/screens/manager/create_book.dart';
+import 'package:marketplace_exercise/screens/manager/create_monitor.dart';
 import 'package:marketplace_exercise/widgets/user/card_widget_beer.dart';
 import 'package:marketplace_exercise/widgets/user/card_widget_book.dart';
 import 'package:marketplace_exercise/widgets/manager/card_widget_product_result.dart';
@@ -30,7 +33,16 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            selected == 0
+                ? Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => CreateBeer()))
+                : selected == 2
+                    ? Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (ctx) => CreateBook()))
+                    : Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => CreateMonitor()));
+          },
           backgroundColor: Colors.orange,
           splashColor: Colors.orange,
           child: Icon(Icons.add, color: Colors.white),
@@ -80,9 +92,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                                                 .productsByCategory[index]
                                                 .category,
                                             style: GoogleFonts.poppins(
-                                                fontWeight: selected == index
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal,
+                                                fontWeight: FontWeight.normal,
                                                 color: selected == index
                                                     ? Colors.white
                                                     : Colors.grey)))));
