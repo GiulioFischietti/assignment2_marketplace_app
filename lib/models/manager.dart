@@ -7,7 +7,7 @@ class Manager extends User {
 
   Manager(data) : super(data) {
     id = data['id'];
-    title = data['title'];
+    title = data['title'] ?? "";
     hiredDate = DateTime.parse(data['hired_date']);
   }
 }

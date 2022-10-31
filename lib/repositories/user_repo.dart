@@ -48,6 +48,30 @@ Future<dynamic> logInData(String username, String password) async {
   }
 }
 
+Future<bool> signUp(String username, String pwd, String name, String address,
+    String phone) async {
+  final response = await http
+      .post(Uri.parse("http://192.168.1.109:3000" + '/signup'), body: {
+    "username": username.replaceAll(" ", ""),
+    "password": pwd,
+    "name": name,
+    'address': address,
+    "phone": phone
+  });
+  return (response.statusCode == 200);
+}
+
+Future<bool> signUpAsManager(String username, String pwd, String name) async {
+  final response = await http.post(
+      Uri.parse("http://192.168.1.109:3000" + '/signupasamanager'),
+      body: {
+        "username": username.replaceAll(" ", ""),
+        "password": pwd,
+        "name": name,
+      });
+  return (response.statusCode == 200);
+}
+
 Future<dynamic> logInAsManagerData(String username, String password) async {
   final response = await http.post(
       Uri.parse("http://192.168.1.109:3000" + '/loginasmanager'),

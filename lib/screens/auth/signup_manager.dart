@@ -1,4 +1,5 @@
 import 'package:marketplace_exercise/providers/constants.dart';
+import 'package:marketplace_exercise/providers/manager_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/repositories/user_repo.dart';
 import 'package:marketplace_exercise/screens/auth/login.dart';
@@ -7,29 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:marketplace_exercise/screens/auth/signup_manager.dart';
+import 'package:marketplace_exercise/screens/manager/bottomtabcontainer_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 
-class SignUp extends StatefulWidget {
+class SignUpAsManager extends StatefulWidget {
   @override
-  SignUpState createState() => SignUpState();
+  SignUpAsManagerState createState() => SignUpAsManagerState();
 }
 
-class SignUpState extends State<SignUp> {
+class SignUpAsManagerState extends State<SignUpAsManager> {
   TextEditingController nameController = new TextEditingController();
-  TextEditingController addressController = new TextEditingController();
+
   TextEditingController usernameController = new TextEditingController();
   TextEditingController pwdController = new TextEditingController();
   TextEditingController pwdRepeatController = new TextEditingController();
-  TextEditingController phoneNumberController = new TextEditingController();
 
   var _privacyprofilazione = false;
   var _privacyofferte = false;
   bool _errorNameVisible = false;
-  bool _errorSurnameVisible = false;
   bool _errorEmailVisible = false;
   bool _errorPwdVisible = false;
   bool _errorPhoneVisible = false;
@@ -141,77 +140,7 @@ class SignUpState extends State<SignUp> {
                           labelText: 'Username',
                         )),
                   )),
-              _errorPhoneVisible
-                  ? Container(
-                      margin: EdgeInsets.only(left: 20),
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        "Required",
-                        style: TextStyle(color: Colors.red[600]),
-                      ))
-                  : Container(),
-              Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 10, right: 20, left: 20, top: 10),
-                  child: Container(
-                    child: TextFormField(
-                        controller: phoneNumberController,
-                        keyboardType: TextInputType.number,
-                        autocorrect: false,
-                        style: TextStyle(color: Colors.grey[800]),
-                        decoration: InputDecoration(
-                          prefixIcon:
-                              Icon(Icons.phone, color: Colors.grey[800]),
-                          labelStyle: GoogleFonts.poppins(
-                              textStyle: TextStyle(color: Colors.grey[800])),
-                          fillColor: Colors.white,
-                          filled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.transparent, width: 2),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.transparent, width: 2.0),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusColor: Colors.grey[800],
-                          hoverColor: Colors.grey[800],
-                          labelText: 'Phone',
-                        )),
-                  )),
-              Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 10, right: 20, left: 20, top: 10),
-                  child: Container(
-                    child: TextFormField(
-                        controller: addressController,
-                        keyboardType: TextInputType.number,
-                        autocorrect: false,
-                        style: TextStyle(color: Colors.grey[800]),
-                        decoration: InputDecoration(
-                          prefixIcon:
-                              Icon(Icons.home_filled, color: Colors.grey[800]),
-                          labelStyle: GoogleFonts.poppins(
-                              textStyle: TextStyle(color: Colors.grey[800])),
-                          fillColor: Colors.white,
-                          filled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.transparent, width: 2),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.transparent, width: 2.0),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusColor: Colors.grey[800],
-                          hoverColor: Colors.grey[800],
-                          labelText: 'Address',
-                        )),
-                  )),
+
               _errorPwdVisible
                   ? Container(
                       margin: EdgeInsets.only(left: 20),
@@ -315,7 +244,6 @@ class SignUpState extends State<SignUp> {
                 child: FlatButton(
                   onPressed: () async {
                     if (nameController.text == '' ||
-                        phoneNumberController.text == '' ||
                         (pwdController.text != pwdRepeatController.text)) {
                       if (nameController.text == '') {
                         setState(() {
@@ -324,16 +252,6 @@ class SignUpState extends State<SignUp> {
                       } else {
                         setState(() {
                           _errorNameVisible = false;
-                        });
-                      }
-
-                      if (phoneNumberController.text == '') {
-                        setState(() {
-                          _errorPhoneVisible = true;
-                        });
-                      } else {
-                        setState(() {
-                          _errorPhoneVisible = false;
                         });
                       }
 
@@ -349,21 +267,20 @@ class SignUpState extends State<SignUp> {
                         });
                       }
                     } else {
-                      final success = await signUp(
+                      final success = await signUpAsManager(
                           usernameController.text,
                           pwdController.text,
-                          nameController.text,
-                          addressController.text,
-                          phoneNumberController.text);
+                          nameController.text);
 
                       if (success) {
-                        final userProvider =
-                            Provider.of<UserProvider>(context, listen: false);
-                        await userProvider.logIn(
+                        final managerProvider = Provider.of<ManagerProvider>(
+                            context,
+                            listen: false);
+                        await managerProvider.logInAsManager(
                             usernameController.text, pwdController.text);
 
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (ctx) => BottomTabContainer(
+                            builder: (ctx) => BottomTabContainerManager(
                                   initialIndex: 0,
                                 )));
                       }
@@ -393,7 +310,7 @@ class SignUpState extends State<SignUp> {
                     children: [
                       Container(
                           margin: EdgeInsets.only(top: 20),
-                          child: Text("Are you Manager of a company?",
+                          child: Text("Are you a new Customer?",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
@@ -401,7 +318,7 @@ class SignUpState extends State<SignUp> {
                                       fontSize: 14,
                                       color: Colors.black)))),
                       FlatButton(
-                        child: Text("Sign Up as Manager",
+                        child: Text("Sign Up as Customer",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
@@ -409,10 +326,7 @@ class SignUpState extends State<SignUp> {
                                     fontSize: 14,
                                     color: Colors.orange))),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpAsManager()));
+                          Navigator.of(context).pop();
                         },
                       ),
                     ],
