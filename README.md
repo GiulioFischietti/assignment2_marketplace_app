@@ -13,6 +13,8 @@ Steps:
 - Open the project with your IDE and update the host (192.168.x.x) to "192.168.1.109" in order to execute correctly the queries to your local db
 - Run inside lib the following commands: flutter pub get, flutter run
 
+If you can't run the application take a look at the screenshots folder!
+
 ## Project Structure
 The Flutter project has the following structure:
 - repository: classes that perform http requests to the backend
