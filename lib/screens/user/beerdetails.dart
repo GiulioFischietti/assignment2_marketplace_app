@@ -27,6 +27,7 @@ class _BeerDetailsState extends State<BeerDetails> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -47,21 +48,23 @@ class _BeerDetailsState extends State<BeerDetails> {
                             margin: EdgeInsets.only(right: 10),
                             child: Icon(Icons.shopping_cart_outlined,
                                 color: Colors.black)))),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Container(
-                      height: 15,
-                      width: 15,
-                      alignment: Alignment.center,
-                      // padding: EdgeInsets.all(2.5),
-                      decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Text("0",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: Colors.white))),
-                ),
+                Consumer<UserProvider>(builder: (context, userProvider, _) {
+                  return Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                        height: 15,
+                        width: 15,
+                        alignment: Alignment.center,
+                        // padding: EdgeInsets.all(2.5),
+                        decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Text(userProvider.cartProducts.length.toString(),
+                            style: GoogleFonts.poppins(
+                                fontSize: 11, color: Colors.white))),
+                  );
+                })
               ],
             )
           ],
@@ -137,10 +140,13 @@ class _BeerDetailsState extends State<BeerDetails> {
                     ],
                   )),
                   InkWell(
-                      onTap: () {
+                      onTap: () async {
                         final userProvider =
                             Provider.of<UserProvider>(context, listen: false);
-                        addToCart(
+                        const snackBar = SnackBar(
+                          content: Text('Item added to cart'),
+                        );
+                        await addToCart(
                             name: homeProvider.beer.name,
                             price: homeProvider.beer.price,
                             category: homeProvider.beer.category,
@@ -148,9 +154,7 @@ class _BeerDetailsState extends State<BeerDetails> {
                             product_id: homeProvider.beer.productId,
                             user_id: userProvider.user.id);
 
-                        const snackBar = SnackBar(
-                          content: Text('Item added to cart'),
-                        );
+                        userProvider.getUserCart();
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Container(

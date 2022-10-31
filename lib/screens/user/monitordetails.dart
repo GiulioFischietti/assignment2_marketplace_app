@@ -47,21 +47,23 @@ class _MonitorDetailsState extends State<MonitorDetails> {
                             margin: EdgeInsets.only(right: 10),
                             child: Icon(Icons.shopping_cart_outlined,
                                 color: Colors.black)))),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Container(
-                      height: 15,
-                      width: 15,
-                      alignment: Alignment.center,
-                      // padding: EdgeInsets.all(2.5),
-                      decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Text("0",
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: Colors.white))),
-                ),
+                Consumer<UserProvider>(builder: (context, userProvider, _) {
+                  return Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                        height: 15,
+                        width: 15,
+                        alignment: Alignment.center,
+                        // padding: EdgeInsets.all(2.5),
+                        decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Text(userProvider.cartProducts.length.toString(),
+                            style: GoogleFonts.poppins(
+                                fontSize: 11, color: Colors.white))),
+                  );
+                })
               ],
             )
           ],
@@ -135,20 +137,21 @@ class _MonitorDetailsState extends State<MonitorDetails> {
                     ],
                   )),
                   InkWell(
-                      onTap: () {
+                      onTap: () async {
                         final userProvider =
                             Provider.of<UserProvider>(context, listen: false);
-                        addToCart(
+
+                        const snackBar = SnackBar(
+                          content: Text('Item added to cart'),
+                        );
+                        await addToCart(
                             name: homeProvider.monitor.name,
                             price: homeProvider.monitor.price,
                             category: homeProvider.monitor.category,
                             image_url: homeProvider.monitor.imageUrl,
                             product_id: homeProvider.monitor.productId,
                             user_id: userProvider.user.id);
-
-                        const snackBar = SnackBar(
-                          content: Text('Item added to cart'),
-                        );
+                        userProvider.getUserCart();
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Container(

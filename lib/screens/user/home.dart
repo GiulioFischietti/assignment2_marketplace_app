@@ -27,9 +27,13 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
+
     homeProvider.getBeers();
     homeProvider.getBooks();
     homeProvider.getMonitors();
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.getUserCart();
   }
 
   List<dynamic> categories = [
