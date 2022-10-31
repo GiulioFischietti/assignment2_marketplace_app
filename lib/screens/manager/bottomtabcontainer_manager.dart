@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marketplace_exercise/screens/manager/analytics.dart';
 import 'package:marketplace_exercise/screens/manager/home_screen.dart';
 import 'package:marketplace_exercise/screens/manager/products_by_category.dart';
 import 'package:marketplace_exercise/screens/user/cart.dart';
@@ -30,6 +31,7 @@ class _BottomTabContainerManagerState extends State<BottomTabContainerManager> {
   static final List<Widget> _widgetOptions = <Widget>[
     Scaffold(body: HomeManager()),
     Scaffold(body: ProductsByCategory()),
+    Scaffold(body: Analytics()),
     // Scaffold(body: Cart()),
     Scaffold(body: Profile()),
   ];
@@ -71,6 +73,15 @@ class _BottomTabContainerManagerState extends State<BottomTabContainerManager> {
               BottomNavigationBarItem(
                 icon: const Icon(Icons.task),
                 title: Text('Products',
+                    style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w400,
+                    ))),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.analytics_outlined),
+                title: Text('Analytics',
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                       fontSize: 11,

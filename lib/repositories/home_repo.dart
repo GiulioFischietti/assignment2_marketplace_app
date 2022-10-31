@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<dynamic> getBeersData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/beers'),
+    Uri.parse("http://192.168.1.109:3000" + '/beers'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -27,7 +27,7 @@ Future<dynamic> getBeersData() async {
 
 Future<dynamic> getBeerByIdData(int id) async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/beerbyid?product_id=$id'),
+    Uri.parse("http://192.168.1.109:3000" + '/beerbyid?product_id=$id'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -45,7 +45,7 @@ Future<dynamic> getBeerByIdData(int id) async {
 
 Future<dynamic> getBookByIdData(int id) async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/bookbyid?product_id=$id'),
+    Uri.parse("http://192.168.1.109:3000" + '/bookbyid?product_id=$id'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -63,7 +63,7 @@ Future<dynamic> getBookByIdData(int id) async {
 
 Future<dynamic> getMonitorByIdData(int id) async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/monitorbyid?product_id=$id'),
+    Uri.parse("http://192.168.1.109:3000" + '/monitorbyid?product_id=$id'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -81,7 +81,7 @@ Future<dynamic> getMonitorByIdData(int id) async {
 
 Future<dynamic> getBooksData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/books'),
+    Uri.parse("http://192.168.1.109:3000" + '/books'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -99,7 +99,7 @@ Future<dynamic> getBooksData() async {
 
 Future<dynamic> getBeersByBrandData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/beersbybrand'),
+    Uri.parse("http://192.168.1.109:3000" + '/beersbybrand'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -117,7 +117,7 @@ Future<dynamic> getBeersByBrandData() async {
 
 Future<dynamic> getBooksByBrandData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/booksbybrand'),
+    Uri.parse("http://192.168.1.109:3000" + '/booksbybrand'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -135,7 +135,7 @@ Future<dynamic> getBooksByBrandData() async {
 
 Future<dynamic> getMonitorsData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/monitors'),
+    Uri.parse("http://192.168.1.109:3000" + '/monitors'),
     headers: {"Content-Type": "application/json"},
   );
 
@@ -153,7 +153,7 @@ Future<dynamic> getMonitorsData() async {
 
 Future<dynamic> searchProdutsData(String keyword) async {
   final response = await http.post(
-      Uri.parse("http://192.168.1.16:3000" + '/searchproducts'),
+      Uri.parse("http://192.168.1.109:3000" + '/searchproducts'),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"keyword": keyword}));
 
@@ -171,7 +171,7 @@ Future<dynamic> searchProdutsData(String keyword) async {
 
 Future<dynamic> getMonitorsByBrandData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.16:3000" + '/monitorsbybrand'),
+    Uri.parse("http://192.168.1.109:3000" + '/monitorsbybrand'),
     headers: {"Content-Type": "application/json"},
   );
 

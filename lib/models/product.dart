@@ -6,6 +6,7 @@ class Product {
   String brand = "";
   String category = "";
   String imageUrl = "";
+  int count = 0;
   bool imageUnavailable = true;
   double price = 0.0;
   int stock = 0;
@@ -24,7 +25,9 @@ class Product {
     price =
         data['price'] != null ? double.parse(data['price'].toString()) : 0.0;
     stock = data['stock'] ?? 0;
+    count = data['product_count'] ?? 0;
   }
+
   Product.fromJson(Map<String, dynamic> data) {
     id = data['id'] ?? 0;
     name = data['name'] ?? "";

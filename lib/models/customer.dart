@@ -8,12 +8,12 @@ class Customer extends User {
   late String phone;
 
   Customer(data) : super(data) {
-    id = data['id'];
+    id = data['id'] ?? 0;
     print("CUSTOMER.ID $id");
-    userId = data['user_id'];
+    userId = data['user_id'] ?? 0;
     print("CUSTOMER.user_id $userId");
-    country = data['country'];
-    address = data['address'];
-    phone = data['phone'];
+    country = data['country'] ?? "";
+    address = data['address'] ?? "";
+    phone = data['phone'] ?? "";
   }
 }

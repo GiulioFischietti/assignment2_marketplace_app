@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:marketplace_exercise/models/beer.dart';
 import 'package:marketplace_exercise/models/book.dart';
+import 'package:marketplace_exercise/models/customer.dart';
 import 'package:marketplace_exercise/models/manager.dart';
 import 'package:marketplace_exercise/models/monitor.dart';
 import 'package:marketplace_exercise/models/order.dart';
+import 'package:marketplace_exercise/models/product.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/models/products_by_category.dart';
 import 'package:marketplace_exercise/models/user.dart';
@@ -17,9 +19,23 @@ import 'package:http/http.dart' as http;
 
 class ManagerProvider extends ChangeNotifier {
   bool loading = false;
+
   List<ProductsByCategory> productsByCategory = [];
   List<ProductOrder> productOrders = [];
   List<Order> orders = [];
+
+  List<Product> beerAnalytics = [];
+  List<Product> bookAnalytics = [];
+  List<Product> monitorAnalytics = [];
+
+  List<Customer> customerAnalytics = [];
+  int totalOrders = 0;
+  double totalSpent = 0.0;
+
+  int totalBeers = 0;
+  int totalBooks = 0;
+  int totalMonitors = 0;
+
   late Book book;
   late Monitor monitor;
   late Beer beer;
@@ -153,6 +169,82 @@ class ManagerProvider extends ChangeNotifier {
     }
 
     orders = _orders;
+    notifyListeners();
+  }
+
+  void getProductAnalytics(
+      {required DateTime startDate,
+      required DateTime endDate,
+      String sorting = "desc"}) async {
+    List<Product> _beerAnalytics = [];
+    List<Product> _bookAnalytics = [];
+    List<Product> _monitorAnalytics = [];
+    int _totalBeers = 0;
+    int _totalBooks = 0;
+    int _totalMonitors = 0;
+    var json = await getProductAnalyticsData(startDate, endDate, sorting);
+
+    for (var product in json['data']['beers']) {
+      _beerAnalytics.add(Product(product));
+      _totalBeers += (product['product_count'] as int);
+    }
+    for (var product in json['data']['books']) {
+      _bookAnalytics.add(Product(product));
+      _totalBooks += (product['product_count'] as int);
+    }
+    for (var product in json['data']['monitors']) {
+      _totalMonitors += (product['product_count'] as int);
+      _monitorAnalytics.add(Product(product));
+    }
+
+    beerAnalytics = _beerAnalytics;
+    bookAnalytics = _bookAnalytics;
+    monitorAnalytics = _monitorAnalytics;
+
+    totalBeers = _totalBeers;
+    totalBooks = _totalBooks;
+    totalMonitors = _totalMonitors;
+
+    notifyListeners();
+  }
+
+  void getCustomerAnalytics(
+      {required DateTime startDate,
+      required DateTime endDate,
+      String sorting = "desc"}) async {
+    List<Customer> _customerAnalytics = [];
+    int _totalOrders = 0;
+
+    var json = await getCustomerAnalyticsData(startDate, endDate, sorting);
+
+    for (var item in json['data']['users']) {
+      _customerAnalytics.add(Customer(item));
+      _totalOrders += (item['order_count'] as int);
+    }
+
+    totalOrders = _totalOrders;
+    customerAnalytics = _customerAnalytics;
+
+    notifyListeners();
+  }
+
+  void getExpencesAnalytics(
+      {required DateTime startDate,
+      required DateTime endDate,
+      String sorting = "desc"}) async {
+    List<Customer> _customerAnalytics = [];
+    double _totalSpent = 0;
+
+    var json = await getExpencesAnalyticsData(startDate, endDate, sorting);
+
+    for (var item in json['data']['users']) {
+      _customerAnalytics.add(Customer(item));
+      _totalSpent += item['order_total'];
+    }
+
+    totalSpent = _totalSpent;
+    customerAnalytics = _customerAnalytics;
+
     notifyListeners();
   }
 
