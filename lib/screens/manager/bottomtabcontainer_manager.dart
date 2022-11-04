@@ -7,7 +7,6 @@ import 'package:marketplace_exercise/screens/manager/home_screen.dart';
 import 'package:marketplace_exercise/screens/manager/products_by_category.dart';
 import 'package:marketplace_exercise/screens/user/cart.dart';
 import 'package:marketplace_exercise/screens/manager/profile.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomTabContainerManager extends StatefulWidget {
   int initialIndex = 0;

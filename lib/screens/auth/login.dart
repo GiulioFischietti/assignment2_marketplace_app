@@ -12,9 +12,8 @@ import 'package:marketplace_exercise/screens/auth/login_manager.dart';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/user/home.dart';
 import 'package:provider/provider.dart';
-import 'SignUp.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'SignUp.dart';
 import 'dart:convert';
 
 bool isLoggedIn = false;
@@ -31,6 +30,7 @@ class _LoginState extends State<Login> {
     user_name = "";
   }
 
+  TextEditingController hostnameController = new TextEditingController();
   TextEditingController usernameController = new TextEditingController();
   TextEditingController pwdController = new TextEditingController();
 
@@ -51,6 +51,48 @@ class _LoginState extends State<Login> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                    Expanded(
+                        child: Container(
+                      padding: EdgeInsets.all(20),
+                      alignment: Alignment.topRight,
+                      child: InkWell(
+                        child: Icon(Icons.settings),
+                        onTap: () {
+                          showDialog<void>(
+                            context: context,
+                            barrierDismissible: false, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: Colors.white,
+                                title: const Text('Settings'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text("Set IP Address of host"),
+                                      TextFormField(
+                                        controller: hostnameController,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('OK'),
+                                    onPressed: () async {
+                                      final prefs =
+                                          await SharedPreferences.getInstance();
+                                      prefs.setString(
+                                          "host", hostnameController.text);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    )),
                     Container(
                       margin: EdgeInsets.only(top: 40, bottom: 0),
                       alignment: Alignment.center,
@@ -82,9 +124,10 @@ class _LoginState extends State<Login> {
                             bottom: 20, left: 20, right: 20, top: 10),
                         child: Container(
                           child: TextFormField(
-                              keyboardType: TextInputType.name,
+                              keyboardType: TextInputType.text,
                               controller: usernameController,
                               autocorrect: false,
+                              textCapitalization: TextCapitalization.none,
                               style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                 filled: true,
@@ -236,7 +279,8 @@ class _LoginState extends State<Login> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    Expanded(child: Container())
                   ])))
             : Container(
                 height: size.height,

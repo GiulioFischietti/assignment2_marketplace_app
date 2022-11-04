@@ -9,8 +9,6 @@ import 'dart:io' show Platform;
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'SignUp.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class ForgotPassword extends StatefulWidget {

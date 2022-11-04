@@ -8,7 +8,6 @@ import 'package:marketplace_exercise/screens/manager/expences_analytics.dart';
 import 'package:marketplace_exercise/screens/manager/product_analytics.dart';
 import 'package:marketplace_exercise/screens/user/orders.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Analytics extends StatefulWidget {
   const Analytics({Key? key});

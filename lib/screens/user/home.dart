@@ -13,7 +13,6 @@ import 'package:marketplace_exercise/widgets/user/card_widget_book.dart';
 import 'package:marketplace_exercise/widgets/user/card_widget_monitor.dart';
 import 'package:marketplace_exercise/widgets/user/menu_tile_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key});

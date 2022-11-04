@@ -4,7 +4,6 @@ import 'package:marketplace_exercise/providers/user_provider.dart';
 import 'package:marketplace_exercise/screens/user/edit_profile.dart';
 import 'package:marketplace_exercise/screens/user/orders.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key});
@@ -79,8 +78,7 @@ class _ProfileState extends State<Profile> {
           }),
           Expanded(child: Container()),
           logOutTile("Log Out", Icons.exit_to_app_outlined, () async {
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.clear();
+           
             userProvider.user.username = "";
             Navigator.pop(context);
           })
@@ -95,7 +93,7 @@ class _ProfileState extends State<Profile> {
         child: Row(
           children: [
             Container(
-                margin: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 child: Icon(icon)),
             Expanded(
               child: Container(

@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:marketplace_exercise/screens/auth/signup_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 

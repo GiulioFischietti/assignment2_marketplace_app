@@ -14,8 +14,6 @@ import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/user/home.dart';
 import 'package:provider/provider.dart';
 import 'SignUp.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 bool isLoggedIn = false;

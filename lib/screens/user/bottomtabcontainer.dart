@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/screens/user/cart.dart';
 import 'package:marketplace_exercise/screens/user/profile.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Home.dart';
 

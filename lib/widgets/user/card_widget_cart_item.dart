@@ -31,7 +31,7 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
     // widget._con.product = widget.item.product;
     return widget.item.quantity != 0
         ? Slidable(
-            key: ValueKey(widget.item.id),
+            key: ValueKey(widget.item.productId),
             enabled: true,
             endActionPane: ActionPane(
               // A motion is a widget used to control how the pane animates.
@@ -180,10 +180,10 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                                                           context,
                                                           listen: false);
                                                   userProvider
-                                                      .removeOneFromCart(
-                                                          widget.item.id);
+                                                      .removeOneFromCart(widget
+                                                          .item.productId);
                                                   removeOneFromCart(
-                                                      widget.item.id,
+                                                      widget.item.productId,
                                                       userProvider.user.id);
                                                 },
                                                 child: Container(

@@ -119,7 +119,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> removeOneFromCart(int id) async {
-    cartProducts.where((element) => element.id == id).first.quantity--;
+    cartProducts.where((element) => element.productId == id).first.quantity--;
     notifyListeners();
   }
 }

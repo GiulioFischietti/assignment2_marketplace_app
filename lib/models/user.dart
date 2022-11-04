@@ -12,7 +12,7 @@ class User {
     id = data['id'] ?? 0;
     name = data['name'] ?? "";
     orderCount = data['order_count'] ?? 0;
-    totalSpent = data['order_total'] ?? 0;
+    totalSpent = data['order_total'].toDouble() ?? 0.0;
     username = data['username'] ?? "";
     imageUrl = data['image_url'] ??
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
