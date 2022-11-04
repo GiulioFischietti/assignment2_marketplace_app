@@ -44,7 +44,9 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                 });
                 final userProvider =
                     Provider.of<UserProvider>(context, listen: false);
-                removeAllFromCart(widget.item.id, userProvider.user.id);
+
+                userProvider.removeAllFromCart(widget.item.productId);
+                removeAllFromCart(widget.item.productId, userProvider.user.id);
               }),
 
               // All actions are defined in the children parameter.
@@ -59,7 +61,9 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                     });
                     final userProvider =
                         Provider.of<UserProvider>(context, listen: false);
-                    removeAllFromCart(widget.item.id, userProvider.user.id);
+                    userProvider.removeAllFromCart(widget.item.productId);
+                    removeAllFromCart(
+                        widget.item.productId, userProvider.user.id);
                   },
                   backgroundColor: Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
@@ -152,7 +156,7 @@ class _CardWidgetCartItemState extends State<CardWidgetCartItem> {
                                                       user_id:
                                                           userProvider.user.id);
                                                   userProvider.addOneToCart(
-                                                      widget.item.id);
+                                                      widget.item.productId);
                                                 },
                                                 child: Container(
                                                     padding:

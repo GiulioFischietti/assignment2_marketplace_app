@@ -74,52 +74,41 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> getUserOrders() async {
-    List<Order> _orders = [];
     loading = true;
     notifyListeners();
-    var beersJson = await getUserOrdersData(user.id);
-
-    for (var order in beersJson['data']) {
-      _orders.add(Order(order));
-    }
+    var json = await getUserOrdersData(user.id);
+    orders = (json['data'] as List).map((e) => Order(e)).toList();
     loading = false;
-    orders = _orders;
     notifyListeners();
   }
 
   Future<void> getUserCart() async {
-    List<ProductOrder> _cartProducts = [];
     loading = true;
     notifyListeners();
-    var beersJson = await getUserCartData(user.id);
-
-    for (var order in beersJson['data']) {
-      _cartProducts.add(ProductOrder(order));
-    }
+    var json = await getUserCartData(user.id);
+    cartProducts = (json['data'] as List).map((e) => ProductOrder(e)).toList();
     loading = false;
-    cartProducts = _cartProducts;
     notifyListeners();
   }
 
   Future<void> getUserOrderDetails(int order_id) async {
-    List<ProductOrder> _productOrders = [];
-
-    var beersJson = await getUserOrderDetailsData(order_id, user.id);
-
-    for (var productOrder in beersJson['data']) {
-      _productOrders.add(ProductOrder(productOrder));
-    }
-    productOrders = _productOrders;
+    var json = await getUserOrderDetailsData(order_id, user.id);
+    productOrders = (json['data'] as List).map((e) => ProductOrder(e)).toList();
     notifyListeners();
   }
 
   Future<void> addOneToCart(int id) async {
-    cartProducts.where((element) => element.id == id).first.quantity++;
+    cartProducts.where((element) => element.productId == id).first.quantity++;
     notifyListeners();
   }
 
   Future<void> removeOneFromCart(int id) async {
     cartProducts.where((element) => element.productId == id).first.quantity--;
+    notifyListeners();
+  }
+
+  Future<void> removeAllFromCart(int id) async {
+    cartProducts.where((element) => element.productId == id).first.quantity = 0;
     notifyListeners();
   }
 }

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Repo {
-  String host = "http://192.168.132.110:3000/";
+  String host = "http://192.168.1.109:3000/";
 
   Future<dynamic> getData(String query) async {
     final response = await http.get(

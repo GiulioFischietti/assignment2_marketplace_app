@@ -42,35 +42,23 @@ class ManagerProvider extends ChangeNotifier {
   late Manager manager;
 
   void getProductsByCategory() async {
-    List<ProductsByCategory> _productsByCategory = [];
     var json = await getProductsByCategoryData();
-
-    for (var book in json['data']) {
-      _productsByCategory.add(ProductsByCategory(book));
-    }
-
-    productsByCategory = _productsByCategory;
+    productsByCategory =
+        (json['data'] as List).map((e) => ProductsByCategory(e)).toList();
     notifyListeners();
   }
 
   Future<void> getOrderDetails(int order_id, int user_id) async {
-    List<ProductOrder> _productOrders = [];
-
-    var beersJson = await getUserOrderDetailsData(order_id, user_id);
-    print(beersJson);
-    for (var productOrder in beersJson['data']) {
-      _productOrders.add(ProductOrder(productOrder));
-    }
-    productOrders = _productOrders;
+    var json = await getUserOrderDetailsData(order_id, user_id);
+    productOrders = (json['data'] as List).map((e) => ProductOrder(e)).toList();
     notifyListeners();
   }
 
   void getBeerById(int id) async {
     loading = true;
     notifyListeners();
-    var beerJson = await getBeerByIdData(id);
-    print(beerJson);
-    beer = Beer(beerJson['data']);
+    var json = await getBeerByIdData(id);
+    beer = Beer(json['data']);
     loading = false;
     notifyListeners();
   }
@@ -161,14 +149,8 @@ class ManagerProvider extends ChangeNotifier {
   }
 
   void getManagedOrders() async {
-    List<Order> _orders = [];
     var json = await getManagerOrdersData();
-
-    for (var order in json['data']) {
-      _orders.add(Order(order));
-    }
-
-    orders = _orders;
+    orders = (json['data'] as List).map((e) => Order(e)).toList();
     notifyListeners();
   }
 
