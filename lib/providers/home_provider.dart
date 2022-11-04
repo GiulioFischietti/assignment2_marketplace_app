@@ -33,7 +33,6 @@ class HomeProvider extends ChangeNotifier {
   void getBeers() async {
     List<Beer> _beers = [];
     var beersJson = await getBeersData();
-    print(beersJson);
     for (var beer in beersJson['data']) {
       _beers.add(Beer(beer));
     }
@@ -46,20 +45,14 @@ class HomeProvider extends ChangeNotifier {
     loading = true;
     notifyListeners();
     var beerJson = await getBeerByIdData(id);
-    print(beerJson);
     beer = Beer(beerJson['data']);
     loading = false;
     notifyListeners();
   }
 
   void getBooks() async {
-    List<Book> _books = [];
     var beersJson = await getBooksData();
-    for (var book in beersJson['data']) {
-      _books.add(Book(book));
-    }
-
-    books = _books;
+    books = (beersJson['data'] as List).map((e) => Book(e)).toList();
     notifyListeners();
   }
 
