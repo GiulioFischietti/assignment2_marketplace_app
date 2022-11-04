@@ -31,13 +31,8 @@ class HomeProvider extends ChangeNotifier {
   List<BooksByBrand> booksByBrand = [];
 
   void getBeers() async {
-    List<Beer> _beers = [];
-    var beersJson = await getBeersData();
-    for (var beer in beersJson['data']) {
-      _beers.add(Beer(beer));
-    }
-
-    beers = _beers;
+    var json = await getBeersData();
+    beers = (json['data'] as List).map((e) => Beer(e)).toList();
     notifyListeners();
   }
 
@@ -51,89 +46,57 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void getBooks() async {
-    var beersJson = await getBooksData();
-    books = (beersJson['data'] as List).map((e) => Book(e)).toList();
+    var json = await getBooksData();
+    books = (json['data'] as List).map((e) => Book(e)).toList();
     notifyListeners();
   }
 
   void getBookById(int id) async {
     loading = true;
     notifyListeners();
-    var beersJson = await getBookByIdData(id);
-    book = Book(beersJson['data']);
+    var json = await getBookByIdData(id);
+    book = Book(json['data']);
     loading = false;
     notifyListeners();
   }
 
-  void getBooksByBrand() async {
-    List<BooksByBrand> _booksByBrand = [];
-    var json = await getBooksByBrandData();
-
-    for (var book in json['data']) {
-      // print(book);
-      _booksByBrand.add(BooksByBrand(book));
-    }
-
-    booksByBrand = _booksByBrand;
-    notifyListeners();
-  }
-
-  void getBeersByBrand() async {
-    List<BeersByBrand> _beersByBrand = [];
-    var json = await getBeersByBrandData();
-
-    for (var book in json['data']) {
-      // print(book);
-      _beersByBrand.add(BeersByBrand(book));
-    }
-
-    beersByBrand = _beersByBrand;
-    notifyListeners();
-  }
-
-  void getMonitorsByBrand() async {
-    List<MonitorsByBrand> _monitorsByBrand = [];
-    var json = await getMonitorsByBrandData();
-
-    for (var book in json['data']) {
-      // print(book);
-      _monitorsByBrand.add(MonitorsByBrand(book));
-    }
-
-    monitorsByBrand = _monitorsByBrand;
-    notifyListeners();
-  }
-
   void getMonitors() async {
-    List<Monitor> _monitors = [];
-    var beersJson = await getMonitorsData();
-
-    for (var monitor in beersJson['data']) {
-      _monitors.add(Monitor(monitor));
-    }
-
-    monitors = _monitors;
+    var json = await getMonitorsData();
+    monitors = (json['data'] as List).map((e) => Monitor(e)).toList();
     notifyListeners();
   }
 
   void getMonitorById(int id) async {
     loading = true;
     notifyListeners();
-    var beersJson = await getMonitorByIdData(id);
-    monitor = Monitor(beersJson['data']);
+    var json = await getMonitorByIdData(id);
+    monitor = Monitor(json['data']);
     loading = false;
     notifyListeners();
   }
 
+  void getBooksByBrand() async {
+    var json = await getBooksByBrandData();
+    booksByBrand = (json['data'] as List).map((e) => BooksByBrand(e)).toList();
+    notifyListeners();
+  }
+
+  void getBeersByBrand() async {
+    var json = await getBeersByBrandData();
+    beersByBrand = (json['data'] as List).map((e) => BeersByBrand(e)).toList();
+    notifyListeners();
+  }
+
+  void getMonitorsByBrand() async {
+    var json = await getMonitorsByBrandData();
+    monitorsByBrand =
+        (json['data'] as List).map((e) => MonitorsByBrand(e)).toList();
+    notifyListeners();
+  }
+
   void searchProducts(String keyword) async {
-    List<Product> _products = [];
-    var beersJson = await searchProdutsData(keyword);
-
-    for (var item in beersJson['data']) {
-      _products.add(Product(item));
-    }
-
-    productsResult = _products;
+    var json = await searchProdutsData(keyword);
+    productsResult = (json['data'] as List).map((e) => Product(e)).toList();
     notifyListeners();
   }
 }
