@@ -302,7 +302,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                       ))
                                 ]),
                                 Column(children: [
-                                  Expanded(child: page2builder()),
+                                  Expanded(
+                                    child: Padding(
+                                        padding: EdgeInsets.all(20),
+                                        child: page2builder()),
+                                  ),
                                   Container(
                                       decoration: BoxDecoration(
                                           color: Colors.white,

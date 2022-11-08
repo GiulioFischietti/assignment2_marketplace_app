@@ -1,7 +1,7 @@
 import 'package:marketplace_exercise/providers/constants.dart';
 import 'package:marketplace_exercise/providers/manager_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 import 'package:marketplace_exercise/screens/auth/forgot_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:http/http.dart' as http;
+import 'package:marketplace_exercise/screens/auth/signup_manager.dart';
 import 'package:marketplace_exercise/screens/manager/bottomtabcontainer_manager.dart';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/user/home.dart';
@@ -154,7 +155,7 @@ class _LoginAsManagerState extends State<LoginAsManager> {
                             alignment: Alignment.centerRight,
                             margin: EdgeInsets.only(right: 5),
                             child: FlatButton(
-                              child: Text("Sign Up",
+                              child: Text("Sign Up as Manager",
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
@@ -165,7 +166,8 @@ class _LoginAsManagerState extends State<LoginAsManager> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignUp()));
+                                        builder: (context) =>
+                                            SignUpAsManager()));
                               },
                             ),
                           )),

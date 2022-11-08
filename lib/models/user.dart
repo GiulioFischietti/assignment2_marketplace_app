@@ -5,8 +5,8 @@ class User {
   late String username;
   late int orderCount;
   late double totalSpent;
-  // late DateTime createdAt;
-  // late DateTime updatedAt;
+  late DateTime createdAt;
+  late DateTime updatedAt;
 
   User(data) {
     id = data['id'] ?? 0;
@@ -16,7 +16,7 @@ class User {
     username = data['username'] ?? "";
     imageUrl = data['image_url'] ??
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
-    // createdAt = DateTime.parse(data['created_at']);
-    // updatedAt = DateTime.parse(data['updated_at']);
+    createdAt = DateTime.parse(data['created_at']);
+    updatedAt = DateTime.parse(data['updated_at']);
   }
 }

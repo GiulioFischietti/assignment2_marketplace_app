@@ -4,9 +4,10 @@ import 'package:marketplace_exercise/models/customer.dart';
 import 'package:marketplace_exercise/models/manager.dart';
 import 'package:marketplace_exercise/models/order.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
-import 'package:marketplace_exercise/models/user.dart';
 import 'package:marketplace_exercise/providers/constants.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/auth_repo.dart';
+import 'package:marketplace_exercise/repositories/order_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -104,6 +105,13 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> removeOneFromCart(int id) async {
     cartProducts.where((element) => element.productId == id).first.quantity--;
+    if (cartProducts
+            .where((element) => element.productId == id)
+            .first
+            .quantity ==
+        0) {
+      cartProducts.removeWhere((element) => element.productId == id);
+    }
     notifyListeners();
   }
 

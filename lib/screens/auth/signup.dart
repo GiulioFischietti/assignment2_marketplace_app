@@ -1,6 +1,8 @@
 import 'package:marketplace_exercise/providers/constants.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/auth_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 import 'package:marketplace_exercise/screens/auth/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/beer.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/user/cart.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,6 @@ class _BeerDetailsState extends State<BeerDetails> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: AppBar(
           actions: [

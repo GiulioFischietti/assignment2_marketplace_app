@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 

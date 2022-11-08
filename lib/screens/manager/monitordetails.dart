@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/models/monitor.dart';
 import 'package:marketplace_exercise/providers/home_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 import 'package:marketplace_exercise/screens/manager/edit_monitor.dart';
 import 'package:marketplace_exercise/screens/user/bottomtabcontainer.dart';
 import 'package:marketplace_exercise/screens/user/cart.dart';

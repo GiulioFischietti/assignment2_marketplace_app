@@ -15,6 +15,7 @@ class ProductOrder extends Product {
         jsonMap['quantity'] != null ? jsonMap['quantity'].toDouble() : 0.0;
   }
 
+  @override
   Map<String, dynamic> toJson() => {
         'price': price,
         'quantity': quantity,

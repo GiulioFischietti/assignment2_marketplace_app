@@ -9,8 +9,8 @@ import 'package:marketplace_exercise/models/monitors_by_brand.dart';
 import 'package:marketplace_exercise/models/product.dart';
 import 'package:marketplace_exercise/models/user.dart';
 import 'package:marketplace_exercise/providers/constants.dart';
-import 'package:marketplace_exercise/repositories/home_repo.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/product_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

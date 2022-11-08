@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:marketplace_exercise/models/beer.dart';
 import 'package:marketplace_exercise/models/book.dart';
 import 'package:marketplace_exercise/models/customer.dart';
@@ -8,14 +7,12 @@ import 'package:marketplace_exercise/models/order.dart';
 import 'package:marketplace_exercise/models/product.dart';
 import 'package:marketplace_exercise/models/product_order.dart';
 import 'package:marketplace_exercise/models/products_by_category.dart';
-import 'package:marketplace_exercise/models/user.dart';
-import 'package:marketplace_exercise/providers/constants.dart';
-import 'package:marketplace_exercise/repositories/home_repo.dart';
-import 'package:marketplace_exercise/repositories/manager_repo.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/auth_repo.dart';
+import 'package:marketplace_exercise/repositories/order_repo.dart';
+import 'package:marketplace_exercise/repositories/product_repo.dart';
+import 'package:marketplace_exercise/repositories/analytics_repo.dart';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class ManagerProvider extends ChangeNotifier {
   bool loading = false;
@@ -66,8 +63,8 @@ class ManagerProvider extends ChangeNotifier {
   void getMonitorById(int id) async {
     loading = true;
     notifyListeners();
-    var beersJson = await getMonitorByIdData(id);
-    monitor = Monitor(beersJson['data']);
+    var json = await getMonitorByIdData(id);
+    monitor = Monitor(json['data']);
     loading = false;
     notifyListeners();
   }
@@ -75,8 +72,8 @@ class ManagerProvider extends ChangeNotifier {
   void getBookById(int id) async {
     loading = true;
     notifyListeners();
-    var beersJson = await getBookByIdData(id);
-    book = Book(beersJson['data']);
+    var json = await getBookByIdData(id);
+    book = Book(json['data']);
     loading = false;
     notifyListeners();
   }
@@ -91,7 +88,7 @@ class ManagerProvider extends ChangeNotifier {
   void updateMonitor(Monitor updatedMonitor) async {
     loading = true;
     notifyListeners();
-    var beersJson = await updateMonitorData(updatedMonitor);
+    var json = await updateMonitorData(updatedMonitor);
     getMonitorById(updatedMonitor.productId);
     getProductsByCategory();
     loading = false;
@@ -101,7 +98,7 @@ class ManagerProvider extends ChangeNotifier {
   void updateBeer(Beer updatedBeer) async {
     loading = true;
     notifyListeners();
-    var beersJson = await updateBeerData(updatedBeer);
+    var json = await updateBeerData(updatedBeer);
     getBeerById(updatedBeer.productId);
     getProductsByCategory();
     loading = false;
@@ -111,7 +108,7 @@ class ManagerProvider extends ChangeNotifier {
   void createBeer(Beer updatedBeer) async {
     loading = true;
     notifyListeners();
-    var beersJson = await createBeerData(updatedBeer);
+    var json = await createBeerData(updatedBeer);
 
     getProductsByCategory();
     loading = false;
@@ -121,7 +118,7 @@ class ManagerProvider extends ChangeNotifier {
   void createBook(Book updatedBook) async {
     loading = true;
     notifyListeners();
-    var beersJson = await createBookData(updatedBook);
+    var json = await createBookData(updatedBook);
 
     getProductsByCategory();
     loading = false;
@@ -131,7 +128,7 @@ class ManagerProvider extends ChangeNotifier {
   void createMonitor(Monitor updatedMonitor) async {
     loading = true;
     notifyListeners();
-    var beersJson = await createMonitorData(updatedMonitor);
+    var json = await createMonitorData(updatedMonitor);
 
     getProductsByCategory();
     loading = false;
@@ -141,7 +138,7 @@ class ManagerProvider extends ChangeNotifier {
   void updateBook(Book updatedBook) async {
     loading = true;
     notifyListeners();
-    var beersJson = await updateBookData(updatedBook);
+    var json = await updateBookData(updatedBook);
     getBookById(updatedBook.productId);
     getProductsByCategory();
     loading = false;

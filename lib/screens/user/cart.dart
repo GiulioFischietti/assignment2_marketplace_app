@@ -58,7 +58,7 @@ class _CartState extends State<Cart> {
                       color: userProvider.cartProducts.isNotEmpty
                           ? Colors.orange
                           : Colors.grey,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(50),
                           topRight: Radius.circular(50))),
                   child: Text(

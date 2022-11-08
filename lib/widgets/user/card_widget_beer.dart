@@ -2,7 +2,7 @@ import 'package:marketplace_exercise/models/beer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 import 'package:marketplace_exercise/screens/user/beerdetails.dart';
 import 'package:provider/provider.dart';
 

@@ -16,6 +16,7 @@ class Beer extends Product {
         : 0.0;
     volumeMl = data['volume_ml'] ?? 0;
   }
+
   @override
   Map<String, dynamic> toJson() {
     final result = <String, dynamic>{};

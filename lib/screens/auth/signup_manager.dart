@@ -1,7 +1,8 @@
 import 'package:marketplace_exercise/providers/constants.dart';
 import 'package:marketplace_exercise/providers/manager_provider.dart';
 import 'package:marketplace_exercise/providers/user_provider.dart';
-import 'package:marketplace_exercise/repositories/user_repo.dart';
+import 'package:marketplace_exercise/repositories/auth_repo.dart';
+import 'package:marketplace_exercise/repositories/cart_repo.dart';
 import 'package:marketplace_exercise/screens/auth/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class SignUpAsManagerState extends State<SignUpAsManager> {
               ),
               Container(
                 margin: EdgeInsets.all(15),
-                child: Text("Create a customer account",
+                child: Text("Create a manager account",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                         textStyle:
